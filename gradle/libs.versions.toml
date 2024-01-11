@@ -1,0 +1,35 @@
+[versions]
+kotlin = "1.9.22"
+
+assertk = "0.28.0"
+detekt = "1.23.4"
+diktat = "2.0.0"
+gradle-maven-publish-plugin = "0.27.0"
+junit5 = "5.10.1"
+kotlin-compile-testing-fork = "0.4.0"
+kotlinpoet = "1.15.3"
+kotlinx-binary-compatibility-validator = "0.13.2"
+spotless = "6.23.3"
+
+[libraries]
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
+junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit5" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
+kotlin-compile-testing = { group = "dev.zacsweers.kctfork", name = "core", version.ref = "kotlin-compile-testing-fork" }
+kotlinpoet = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
+
+# Dependencies of the included build-logic
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+diktat-plugin = { group = "com.saveourtool.diktat", name = "diktat-gradle-plugin", version.ref = "diktat" }
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-maven-publish-plugin" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+gradle-maven-publish-plugin-base = { id = "com.vanniktech.maven.publish.base", version.ref = "gradle-maven-publish-plugin" }
+kotlinx-binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-binary-compatibility-validator" }
