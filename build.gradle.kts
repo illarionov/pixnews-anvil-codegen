@@ -7,6 +7,7 @@
 plugins {
     alias(libs.plugins.gradle.maven.publish.plugin.base) apply false
     alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlinx.binary.compatibility.validator) apply false
     id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library") apply false
     id("ru.pixnews.anvil.codegen.build-logic.project.publish") apply false

@@ -1,5 +1,5 @@
 <component name="CopyrightManager">
-  <settings default="anvil-codegen">
+  <settings>
     <module2copyright>
       <element module="Project Files" copyright="anvil-codegen" />
     </module2copyright>

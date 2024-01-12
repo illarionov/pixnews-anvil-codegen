@@ -22,8 +22,10 @@ kotlin {
         languageVersion = KOTLIN_1_9
         apiVersion = KOTLIN_1_9
         freeCompilerArgs.addAll(
-            "-opt-in=kotlin.RequiresOptIn",
             "-Xjvm-default=all",
+            "-opt-in=com.squareup.anvil.annotations.ExperimentalAnvilApi",
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
         )
     }
 }

@@ -12,4 +12,17 @@ plugins {
 }
 
 rootProject.name = "pixnews-anvil-codegen"
-include("lib")
+include("common")
+include("test-utils")
+
+listOf(
+    "activity",
+    "experiment",
+    "initializer",
+    "test",
+    "viewmodel",
+    "workmanager",
+).forEach {
+    include("$it:generator")
+    include("$it:inject")
+}

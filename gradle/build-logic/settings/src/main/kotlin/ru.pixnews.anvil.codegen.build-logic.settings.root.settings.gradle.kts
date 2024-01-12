@@ -11,3 +11,5 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.settings.repositories")
     id("ru.pixnews.anvil.codegen.build-logic.settings.gradle-enterprise")
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
