@@ -9,14 +9,11 @@ package ru.pixnews.anvil.codegen.common.util
 import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.ParameterReference
 import com.squareup.kotlinpoet.TypeName
-import ru.pixnews.anvil.codegen.common.classname.AndroidClassName
 
 public class ConstructorParameter(
     public val name: String,
     public val resolvedType: TypeName,
 )
-
-public fun ConstructorParameter.isSavedStateHandle(): Boolean = resolvedType == AndroidClassName.savedStateHandle
 
 public fun List<ParameterReference>.parseConstructorParameters(
     implementingClass: ClassReference,

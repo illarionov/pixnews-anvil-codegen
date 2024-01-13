@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
 import javax.inject.Provider
@@ -121,7 +120,7 @@ class ContributesInitializerCodeGeneratorTest {
         fun `Generated module should have correct annotations`() {
             val clazz = compilationResult.classLoader.loadClass(generatedModuleName)
             val appInitializerScopeClass =
-                compilationResult.classLoader.loadClass(PixnewsClassName.appInitializersScope)
+                compilationResult.classLoader.loadClass(PixnewsInitializerClassName.appInitializersScope)
 
             assertThat(clazz).haveAnnotation(ContributesTo::class.java)
             assertThat(clazz).haveAnnotation(Module::class.java)
@@ -134,7 +133,9 @@ class ContributesInitializerCodeGeneratorTest {
         @Test
         fun `Generated module should have correct provide method`() {
             val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
-            val asyncInitializerClass = compilationResult.classLoader.loadClass(PixnewsClassName.asyncInitializer)
+            val asyncInitializerClass = compilationResult.classLoader.loadClass(
+                PixnewsInitializerClassName.asyncInitializer,
+            )
             val loggerClass = compilationResult.classLoader.loadClass("co.touchlab.kermit.Logger")
 
             val provideMethod = moduleClass.declaredMethods.firstOrNull {
@@ -178,7 +179,7 @@ class ContributesInitializerCodeGeneratorTest {
         fun `Generated module should have correct annotations`() {
             val clazz = compilationResult.classLoader.loadClass(generatedModuleName)
             val appInitializerScopeClass =
-                compilationResult.classLoader.loadClass(PixnewsClassName.appInitializersScope)
+                compilationResult.classLoader.loadClass(PixnewsInitializerClassName.appInitializersScope)
             val replacesScopeClass = compilationResult.classLoader.loadClass(
                 "ru.pixnews.initializers.FirebaseInitializer_InitializerModule",
             )

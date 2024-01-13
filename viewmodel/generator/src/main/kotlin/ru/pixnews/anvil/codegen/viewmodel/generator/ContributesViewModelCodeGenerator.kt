@@ -19,6 +19,7 @@ import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferenc
 import com.squareup.anvil.compiler.internal.reference.generateClassName
 import com.squareup.anvil.compiler.internal.safePackageString
 import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.MemberName
@@ -27,11 +28,9 @@ import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtFile
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
+import ru.pixnews.anvil.codegen.common.util.ConstructorParameter
 import ru.pixnews.anvil.codegen.common.util.checkClassExtendsType
 import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
-import ru.pixnews.anvil.codegen.common.util.isSavedStateHandle
 import ru.pixnews.anvil.codegen.common.util.parseConstructorParameters
 import java.io.File
 
@@ -46,7 +45,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
     ): Collection<GeneratedFile> {
         return projectFiles
             .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(FqNames.contributesViewModel) }
+            .filter { it.isAnnotatedWith(PixnewsViewModelClassName.contributesViewModelFqName) }
             .map { generateViewModelModule(it, codeGenDir) }
             .toList()
     }
@@ -55,7 +54,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
         annotatedClass: ClassReference,
         codeGenDir: File,
     ): GeneratedFile {
-        annotatedClass.checkClassExtendsType(viewModelFqName)
+        annotatedClass.checkClassExtendsType(VIEW_MODEL_FQ_NAME)
 
         val moduleClassId = annotatedClass.generateClassName(suffix = "_FactoryModule")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
@@ -63,7 +62,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
 
         val moduleInterfaceSpecBuilder = TypeSpec.objectBuilder(moduleClassName)
             .addAnnotation(DaggerClassName.module)
-            .addAnnotation(contributesToAnnotation(PixnewsClassName.viewModelScope))
+            .addAnnotation(contributesToAnnotation(PixnewsViewModelClassName.viewModelScope))
             .addFunction(generateProvidesFactoryMethod(annotatedClass))
 
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
@@ -86,11 +85,11 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
             .addAnnotation(DaggerClassName.intoMap)
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.viewModelMapKey)
+                    .builder(PixnewsViewModelClassName.viewModelMapKey)
                     .addMember("%T::class", viewModelClass)
                     .build(),
             )
-            .returns(PixnewsClassName.viewModelFactory)
+            .returns(PixnewsViewModelClassName.viewModelFactory)
 
         primaryConstructorParams
             .filter { !it.isSavedStateHandle() }
@@ -104,22 +103,24 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
             }
         }
         val createViewModeStatementArgs: Array<Any> = primaryConstructorParams.mapNotNull {
-            if (it.isSavedStateHandle()) createSavedStateHandleMember else null
+            if (it.isSavedStateHandle()) CREATE_SAVED_STATE_HANDLE_MEMBER else null
         }.toTypedArray()
 
-        builder.beginControlFlow("return %T", PixnewsClassName.viewModelFactory)
+        builder.beginControlFlow("return %T", PixnewsViewModelClassName.viewModelFactory)
         @Suppress("SpreadOperator")
         builder.addStatement("%T(\n$viewModelConstructorParameters\n)", viewModelClass, *createViewModeStatementArgs)
         builder.endControlFlow()
         return builder.build()
     }
 
-    private companion object {
-        private val viewModelFqName = FqName("androidx.lifecycle.ViewModel")
-        private val createSavedStateHandleMember = MemberName(
+    internal companion object {
+        private val VIEW_MODEL_FQ_NAME = FqName("androidx.lifecycle.ViewModel")
+        private val SAVED_STATE_HANDLE_CLASS_NAME: ClassName = ClassName("androidx.lifecycle", "SavedStateHandle")
+        private val CREATE_SAVED_STATE_HANDLE_MEMBER = MemberName(
             packageName = "androidx.lifecycle",
             simpleName = "createSavedStateHandle",
             isExtension = true,
         )
+        private fun ConstructorParameter.isSavedStateHandle(): Boolean = resolvedType == SAVED_STATE_HANDLE_CLASS_NAME
     }
 }

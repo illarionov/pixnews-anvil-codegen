@@ -24,7 +24,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
+import ru.pixnews.anvil.codegen.activity.generator.PixnewsActivityClassName.activityMapKey
+import ru.pixnews.anvil.codegen.activity.generator.PixnewsActivityClassName.activityScope
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
 
@@ -80,7 +81,7 @@ class ContributesActivityCodeGeneratorTest {
     @Test
     fun `Generated module should have correct annotations`() {
         val clazz = compilationResult.classLoader.loadClass(generatedModuleName)
-        val activityScopeClass = compilationResult.classLoader.loadClass(PixnewsClassName.activityScope)
+        val activityScopeClass = compilationResult.classLoader.loadClass(activityScope)
         assertThat(clazz).haveAnnotation(ContributesTo::class.java)
 
         assertThat(clazz.getAnnotation(ContributesTo::class.java).scope.java)
@@ -90,7 +91,7 @@ class ContributesActivityCodeGeneratorTest {
     @Test
     fun `Generated module should have correct binding method`() {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
-        val activityMapKey = compilationResult.classLoader.loadClass(PixnewsClassName.activityMapKey)
+        val activityMapKey = compilationResult.classLoader.loadClass(activityMapKey)
 
         val provideMethod = moduleClass.declaredMethods.firstOrNull {
             it.name == "bindsTestActivityInjector"

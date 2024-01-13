@@ -21,11 +21,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.AndroidClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
 import ru.pixnews.anvil.codegen.testutils.getElementValue
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
+import ru.pixnews.anvil.codegen.workmanager.generator.ContributesCoroutineWorkerCodeGenerator.Companion.ANDROID_CONTEXT_CLASS_NAME
+import ru.pixnews.anvil.codegen.workmanager.generator.ContributesCoroutineWorkerCodeGenerator.Companion.WORKER_PARAMETERS_CLASS_NAME
 
 @OptIn(ExperimentalCompilerApi::class)
 @TestInstance(Lifecycle.PER_CLASS)
@@ -131,13 +131,15 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
     fun `Generated factory should have correct annotations and superclass`() {
         val clazz = compilationResult.classLoader.loadClass(generatedFactoryName)
         val testWorkerClass = compilationResult.classLoader.loadClass("com.test.TestWorker")
-        val workManagerScopeClass = compilationResult.classLoader.loadClass(PixnewsClassName.workManagerScope)
+        val workManagerScopeClass = compilationResult.classLoader.loadClass(
+            PixnewsWorkManagerClassName.workManagerScope,
+        )
         val coroutineWorkerFactoryClass =
-            compilationResult.classLoader.loadClass(PixnewsClassName.coroutineWorkerFactory)
+            compilationResult.classLoader.loadClass(PixnewsWorkManagerClassName.coroutineWorkerFactory)
 
         @Suppress("UNCHECKED_CAST")
         val coroutineWorkerMapKeyClass: Class<Annotation> = compilationResult.classLoader.loadClass(
-            PixnewsClassName.coroutineWorkerMapKey,
+            PixnewsWorkManagerClassName.coroutineWorkerMapKey,
         ) as Class<Annotation>
 
         assertThat(clazz).haveAnnotation(AssistedFactory::class.java)
@@ -157,8 +159,8 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
     fun `Generated factory should have correct create method`() {
         val factoryClass = compilationResult.classLoader.loadClass(generatedFactoryName)
         val testWorkerClass = compilationResult.classLoader.loadClass("com.test.TestWorker")
-        val androidContextClass = compilationResult.classLoader.loadClass(AndroidClassName.context)
-        val workerParamsClass = compilationResult.classLoader.loadClass(AndroidClassName.workerParameters)
+        val androidContextClass = compilationResult.classLoader.loadClass(ANDROID_CONTEXT_CLASS_NAME)
+        val workerParamsClass = compilationResult.classLoader.loadClass(WORKER_PARAMETERS_CLASS_NAME)
 
         val createMethod = factoryClass.declaredMethods.firstOrNull {
             it.name == "create"

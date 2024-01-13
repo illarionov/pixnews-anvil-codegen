@@ -24,10 +24,13 @@ import com.squareup.kotlinpoet.TypeSpec
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.psi.KtFile
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
 import ru.pixnews.anvil.codegen.common.util.checkClassExtendsType
 import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.contributesExperimentFqName
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.contributesExperimentVariantSerializerFqName
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantMapKey
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantSerializer
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantSerializerFqName
 import java.io.File
 
 @AutoService(CodeGenerator::class)
@@ -42,8 +45,8 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
         val experimentAnnotatedClass = projectFiles.classAndInnerClassReferences(module)
             .filter { classRef ->
                 classRef.annotations.any { annotationRef ->
-                    annotationRef.fqName == FqNames.contributesExperiment ||
-                            annotationRef.fqName == FqNames.contributesVariantSerializer
+                    annotationRef.fqName == contributesExperimentFqName ||
+                            annotationRef.fqName == contributesExperimentVariantSerializerFqName
                 }
             }
             .toSortedSet()
@@ -65,7 +68,7 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
 
         val moduleTypeSpecBuilder = TypeSpec.objectBuilder(moduleClassName)
             .addAnnotation(DaggerClassName.module)
-            .addAnnotation(contributesToAnnotation(PixnewsClassName.experimentScope))
+            .addAnnotation(contributesToAnnotation(PixnewsExperimentClassName.experimentScope))
 
         annotatedClasses.forEach {
             moduleTypeSpecBuilder.addFunction(generateProvidesMethod(it))
@@ -79,8 +82,8 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
 
     private fun generateProvidesMethod(annotatedClass: ClassReference): FunSpec {
         val experimentAnnotations = annotatedClass.annotations.filter { annotationRef ->
-            annotationRef.fqName == FqNames.contributesExperiment ||
-                    annotationRef.fqName == FqNames.contributesVariantSerializer
+            annotationRef.fqName == contributesExperimentFqName ||
+                    annotationRef.fqName == contributesExperimentVariantSerializerFqName
         }
 
         require(experimentAnnotations.size == 1) {
@@ -89,8 +92,8 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
 
         val annotation = experimentAnnotations.single()
         return when (annotation.fqName) {
-            FqNames.contributesExperiment -> providesExperimentFunction(annotatedClass)
-            FqNames.contributesVariantSerializer -> {
+            contributesExperimentFqName -> providesExperimentFunction(annotatedClass)
+            contributesExperimentVariantSerializerFqName -> {
                 val experimentKeyAnnotation = annotation.arguments.singleOrNull()
                     ?: throw IllegalArgumentException("experimentKey on ContributesExperimentVariant not defined")
 
@@ -108,12 +111,12 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
      * `@Provides @IntoSet abstract fun provideMainExperiment(experiment: MainExperiment): Experiment`
      */
     private fun providesExperimentFunction(annotatedExperiment: ClassReference): FunSpec {
-        annotatedExperiment.checkClassExtendsType(FqNames.experiment)
+        annotatedExperiment.checkClassExtendsType(PixnewsExperimentClassName.experimentFqName)
 
         return FunSpec.builder("provide${annotatedExperiment.shortName}")
             .addAnnotation(DaggerClassName.provides)
             .addAnnotation(DaggerClassName.intoSet)
-            .returns(PixnewsClassName.experiment)
+            .returns(PixnewsExperimentClassName.experiment)
             .addCode("return %T", annotatedExperiment.asClassName())
             .build()
     }
@@ -125,18 +128,18 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
         annotatedSerializer: ClassReference,
         experimentVariantKey: String,
     ): FunSpec {
-        annotatedSerializer.checkClassExtendsType(FqNames.experimentVariantSerializer)
+        annotatedSerializer.checkClassExtendsType(experimentVariantSerializerFqName)
 
         return FunSpec.builder("provide${annotatedSerializer.shortName}")
             .addAnnotation(DaggerClassName.provides)
             .addAnnotation(DaggerClassName.intoMap)
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.experimentVariantMapKey)
+                    .builder(experimentVariantMapKey)
                     .addMember("key = %S", experimentVariantKey)
                     .build(),
             )
-            .returns(PixnewsClassName.experimentVariantSerializer)
+            .returns(experimentVariantSerializer)
             .addCode("return %T", annotatedSerializer.asClassName())
             .build()
     }

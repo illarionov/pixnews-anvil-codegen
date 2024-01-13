@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
 
@@ -77,7 +76,7 @@ class ContributesTestCodeGeneratorTest {
     @Test
     fun `Generated module should have correct annotations`() {
         val clazz = compilationResult.classLoader.loadClass(generatedModuleName)
-        val appScopeClass = compilationResult.classLoader.loadClass(PixnewsClassName.appScope)
+        val appScopeClass = compilationResult.classLoader.loadClass(PixnewsTestClassName.appScope)
         assertThat(clazz).haveAnnotation(ContributesTo::class.java)
 
         assertThat(
@@ -89,7 +88,7 @@ class ContributesTestCodeGeneratorTest {
     fun `Generated module should have correct provide method`() {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
         val singleInstrumentedTestInjectorClass = compilationResult.classLoader.loadClass(
-            PixnewsClassName.singleInstrumentedTestInjector,
+            PixnewsTestClassName.singleInstrumentedTestInjector,
         )
 
         val provideMethod = moduleClass.declaredMethods.firstOrNull {

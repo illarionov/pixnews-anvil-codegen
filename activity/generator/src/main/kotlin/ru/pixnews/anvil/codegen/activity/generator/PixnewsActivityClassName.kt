@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Please see the AUTHORS file for details.
+ * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ */
+
+package ru.pixnews.anvil.codegen.activity.generator
+
+import com.squareup.kotlinpoet.ClassName
+import org.jetbrains.kotlin.name.FqName
+
+internal object PixnewsActivityClassName {
+    private const val ACTIVITY_PACKAGE = "ru.pixnews.foundation.di.ui.base.activity"
+    internal val activityMapKey = ClassName(ACTIVITY_PACKAGE, "ActivityMapKey")
+    internal val activityScope = ClassName(ACTIVITY_PACKAGE, "ActivityScope")
+    internal val contributesActivity = FqName("ru.pixnews.foundation.di.ui.base.activity.ContributesActivity")
+}
