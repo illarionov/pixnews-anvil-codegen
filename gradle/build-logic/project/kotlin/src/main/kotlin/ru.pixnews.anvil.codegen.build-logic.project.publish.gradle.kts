@@ -1,3 +1,7 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
+import ru.pixnews.anvil.codegen.buildlogic.project.publish.createAnvilCodegenVersionsExtension
+
 /*
  * Copyright (c) 2024, the anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
@@ -11,6 +15,8 @@ plugins {
     kotlin("jvm") apply false
     id("com.vanniktech.maven.publish.base")
 }
+
+createAnvilCodegenVersionsExtension()
 
 tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false
@@ -34,6 +40,12 @@ mavenPublishing {
             }
         }
     }
+    configure(
+        KotlinJvm(
+            javadocJar = JavadocJar.None(),
+            sourcesJar = true,
+        ),
+    )
 
     signAllPublications()
 

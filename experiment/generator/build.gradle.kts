@@ -8,5 +8,8 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.generator")
 }
 
-group = "ru.pixnews.anvil.codegen.experiment.generator"
-version = "0.1-SNAPSHOT"
+group = "ru.pixnews.anvil.codegen.experiment"
+version = anvilCodegenVersions.getSubmoduleVersionProvider(
+    propertiesFileKey = "anvil_codegen_experiment_generator_version",
+    envVariableName = "ANVIL_CODEGEN_EXPERIMENT_GENERATOR_VERSION",
+).get()
