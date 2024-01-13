@@ -8,5 +8,8 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.generator")
 }
 
-group = "ru.pixnews.anvil.codegen.workamanger.generator"
-version = "0.1-SNAPSHOT"
+group = "ru.pixnews.anvil.codegen.workmanager"
+version = anvilCodegenVersions.getSubmoduleVersionProvider(
+    propertiesFileKey = "anvil_codegen_workmanager_generator_version",
+    envVariableName = "ANVIL_CODEGEN_WORKMANAGER_GENERATOR_VERSION",
+).get()

@@ -10,8 +10,11 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
-group = "ru.pixnews.anvil.codegen.experiment.inject"
-version = "0.1-SNAPSHOT"
+group = "ru.pixnews.anvil.codegen.experiment"
+version = anvilCodegenVersions.getSubmoduleVersionProvider(
+    propertiesFileKey = "anvil_codegen_experiment_inject_version",
+    envVariableName = "ANVIL_CODEGEN_EXPERIMENT_INJECT_VERSION",
+).get()
 
 dependencies {
 }
