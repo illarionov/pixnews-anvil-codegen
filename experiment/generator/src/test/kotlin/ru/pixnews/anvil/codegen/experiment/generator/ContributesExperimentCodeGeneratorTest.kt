@@ -22,7 +22,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experiment
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantMapKey
+import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantSerializer
 import ru.pixnews.anvil.codegen.testutils.getElementValue
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
@@ -80,7 +82,7 @@ class ContributesExperimentCodeGeneratorTest {
     @Test
     fun `Generated module should have correct providing method for experiment`() {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
-        val experimentClass = compilationResult.classLoader.loadClass(PixnewsClassName.experiment)
+        val experimentClass = compilationResult.classLoader.loadClass(experiment)
 
         val provideMethod = moduleClass.declaredMethods.firstOrNull {
             it.name == "provideTestExperiment"
@@ -118,11 +120,11 @@ class ContributesExperimentCodeGeneratorTest {
     ) {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
         val experimentVariantSerializerClass = compilationResult.classLoader.loadClass(
-            PixnewsClassName.experimentVariantSerializer,
+            experimentVariantSerializer,
         )
 
         @Suppress("UNCHECKED_CAST") val experimentVariantMapKey = compilationResult.classLoader
-            .loadClass(PixnewsClassName.experimentVariantMapKey) as Class<Annotation>
+            .loadClass(experimentVariantMapKey) as Class<Annotation>
 
         val provideMethod = moduleClass.declaredMethods.firstOrNull { it.name == methodName }
             ?: fail("no $methodName method")

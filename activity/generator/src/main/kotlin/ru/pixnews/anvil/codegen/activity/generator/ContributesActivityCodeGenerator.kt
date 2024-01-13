@@ -28,9 +28,8 @@ import com.squareup.kotlinpoet.WildcardTypeName
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtFile
+import ru.pixnews.anvil.codegen.common.classname.AnvilClassName
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
 import ru.pixnews.anvil.codegen.common.util.checkClassExtendsType
 import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
 import java.io.File
@@ -46,7 +45,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
     ): Collection<GeneratedFile> {
         return projectFiles
             .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(FqNames.contributesActivity) }
+            .filter { it.isAnnotatedWith(PixnewsActivityClassName.contributesActivity) }
             .map { generateActivityModule(it, codeGenDir) }
             .toList()
     }
@@ -55,7 +54,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
         annotatedClass: ClassReference,
         codeGenDir: File,
     ): GeneratedFile {
-        annotatedClass.checkClassExtendsType(activityFqName)
+        annotatedClass.checkClassExtendsType(ANDROID_ACTIVITY_FQ_NAME)
 
         val moduleClassId = annotatedClass.generateClassName(suffix = "_ActivityModule")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
@@ -63,7 +62,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
 
         val moduleInterfaceSpec = TypeSpec.interfaceBuilder(moduleClassName)
             .addAnnotation(DaggerClassName.module)
-            .addAnnotation(contributesToAnnotation(PixnewsClassName.activityScope))
+            .addAnnotation(contributesToAnnotation(PixnewsActivityClassName.activityScope))
             .addFunction(generateBindMethod(annotatedClass))
             .build()
 
@@ -80,7 +79,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
 
         // MembersInjector<out Activity>
         val returnType = DaggerClassName.membersInjector
-            .parameterizedBy(WildcardTypeName.producerOf(activityClassName))
+            .parameterizedBy(WildcardTypeName.producerOf(ANDROID_ACTIVITY_CLASS_NAME))
 
         return FunSpec.builder("binds${annotatedClass.shortName}Injector")
             .addModifiers(KModifier.ABSTRACT)
@@ -88,14 +87,14 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
             .addAnnotation(DaggerClassName.intoMap)
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.activityMapKey)
+                    .builder(PixnewsActivityClassName.activityMapKey)
                     .addMember("activityClass = %T::class", activityClass)
                     .build(),
             )
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.singleIn)
-                    .addMember("%T::class", PixnewsClassName.activityScope)
+                    .builder(AnvilClassName.singleIn)
+                    .addMember("%T::class", PixnewsActivityClassName.activityScope)
                     .build(),
             )
             .addParameter("target", DaggerClassName.membersInjector.parameterizedBy(activityClass))
@@ -104,7 +103,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
     }
 
     private companion object {
-        private val activityClassName = ClassName("android.app", "Activity")
-        private val activityFqName = FqName("android.app.Activity")
+        private val ANDROID_ACTIVITY_CLASS_NAME = ClassName("android.app", "Activity")
+        private val ANDROID_ACTIVITY_FQ_NAME = FqName(ANDROID_ACTIVITY_CLASS_NAME.canonicalName)
     }
 }

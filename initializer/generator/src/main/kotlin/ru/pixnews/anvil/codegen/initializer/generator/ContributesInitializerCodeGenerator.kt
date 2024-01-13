@@ -30,10 +30,6 @@ import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.psi.KtFile
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName.asyncInitializer
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName.initializer
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
 import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
 import ru.pixnews.anvil.codegen.common.util.parseConstructorParameters
 import java.io.File
@@ -49,7 +45,7 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
     ): Collection<GeneratedFile> {
         return projectFiles
             .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(FqNames.contributesInitializer) }
+            .filter { it.isAnnotatedWith(PixnewsInitializerClassName.contributesInitializerFqName) }
             .map { generateInitializerModule(it, codeGenDir) }
             .toList()
     }
@@ -59,14 +55,17 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
         codeGenDir: File,
     ): GeneratedFile {
         val boundType = checkNotNull(annotatedClass.getInitializerBoundType()) {
-            "${annotatedClass.fqName} doesn't extend any of $initializer or $asyncInitializer"
+            "${annotatedClass.fqName} doesn't extend any of ${PixnewsInitializerClassName.initializer} " +
+                    "or ${PixnewsInitializerClassName.asyncInitializer}"
         }
 
         val moduleClassId = annotatedClass.moduleNameForInitializer()
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
         val moduleClassName = moduleClassId.relativeClassName.asString()
 
-        val replaces: List<TypeName> = annotatedClass.annotations.first { it.fqName == FqNames.contributesInitializer }
+        val replaces: List<TypeName> = annotatedClass.annotations.first {
+            it.fqName == PixnewsInitializerClassName.contributesInitializerFqName
+        }
             .replaces(parameterIndex = 0)
             .map { replacedClassRef ->
                 if (replacedClassRef.isInitializer()) {
@@ -80,7 +79,7 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
             .addAnnotation(DaggerClassName.module)
             .addAnnotation(
                 contributesToAnnotation(
-                    className = PixnewsClassName.appInitializersScope,
+                    className = PixnewsInitializerClassName.appInitializersScope,
                     replaces = replaces,
                 ),
             )
@@ -119,7 +118,10 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
     private fun ClassReference.getInitializerBoundType(): ClassName? {
         return allSuperTypeClassReferences()
             .map(ClassReference::asClassName)
-            .firstOrNull { it == initializer || it == asyncInitializer }
+            .firstOrNull {
+                it == PixnewsInitializerClassName.initializer ||
+                        it == PixnewsInitializerClassName.asyncInitializer
+            }
     }
 
     private fun ClassReference.isInitializer() = getInitializerBoundType() != null

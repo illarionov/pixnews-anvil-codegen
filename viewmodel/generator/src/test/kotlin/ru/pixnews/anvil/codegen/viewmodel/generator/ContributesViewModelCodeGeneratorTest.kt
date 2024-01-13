@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
 import ru.pixnews.anvil.codegen.testutils.haveAnnotation
 import ru.pixnews.anvil.codegen.testutils.loadClass
 
@@ -102,7 +101,7 @@ class ContributesViewModelCodeGeneratorTest {
     @Test
     fun `Generated module should have correct annotations`() {
         val clazz = compilationResult.classLoader.loadClass(generatedModuleName)
-        val viewModelScopeClass = compilationResult.classLoader.loadClass(PixnewsClassName.viewModelScope)
+        val viewModelScopeClass = compilationResult.classLoader.loadClass(PixnewsViewModelClassName.viewModelScope)
         assertThat(clazz).haveAnnotation(ContributesTo::class.java)
 
         assertThat(
@@ -113,8 +112,8 @@ class ContributesViewModelCodeGeneratorTest {
     @Test
     fun `Generated module should have correct provide method`() {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
-        val viewModelMapKey = compilationResult.classLoader.loadClass(PixnewsClassName.viewModelMapKey)
-        val viewModelFactoryClass = compilationResult.classLoader.loadClass(PixnewsClassName.viewModelFactory)
+        val viewModelMapKey = compilationResult.classLoader.loadClass(PixnewsViewModelClassName.viewModelMapKey)
+        val viewModelFactoryClass = compilationResult.classLoader.loadClass(PixnewsViewModelClassName.viewModelFactory)
         val featureManagerClass = compilationResult.classLoader.loadClass(featureManagerClass)
 
         val provideMethod = moduleClass.declaredMethods.firstOrNull {

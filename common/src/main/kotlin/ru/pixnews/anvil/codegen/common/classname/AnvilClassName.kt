@@ -12,8 +12,14 @@ public object AnvilClassName {
     private const val ANVIL_ANNOTATIONS_PACKAGE = "com.squareup.anvil.annotations"
 
     @JvmStatic
-    public val contributesMultibinding: ClassName = ClassName(ANVIL_ANNOTATIONS_PACKAGE, "ContributesMultibinding")
+    internal val contributesMultibinding: ClassName = ClassName(ANVIL_ANNOTATIONS_PACKAGE, "ContributesMultibinding")
 
     @JvmStatic
-    public val contributesTo: ClassName = ClassName(ANVIL_ANNOTATIONS_PACKAGE, "ContributesTo")
+    internal val contributesTo: ClassName = ClassName(ANVIL_ANNOTATIONS_PACKAGE, "ContributesTo")
+
+    @JvmStatic
+    public val singleIn: ClassName = ClassName(
+        "com.squareup.anvil.annotations.optional",
+        "SingleIn",
+    )
 }

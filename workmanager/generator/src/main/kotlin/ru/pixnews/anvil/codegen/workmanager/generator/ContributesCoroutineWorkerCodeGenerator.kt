@@ -29,10 +29,7 @@ import com.squareup.kotlinpoet.TypeSpec.Companion.interfaceBuilder
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtFile
-import ru.pixnews.anvil.codegen.common.classname.AndroidClassName
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
 import ru.pixnews.anvil.codegen.common.util.checkClassExtendsType
 import ru.pixnews.anvil.codegen.common.util.contributesMultibindingAnnotation
 import java.io.File
@@ -48,7 +45,7 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
     ): Collection<GeneratedFile> {
         return projectFiles
             .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(FqNames.contributesCoroutineWorker) }
+            .filter { it.isAnnotatedWith(PixnewsWorkManagerClassName.contributesCoroutineWorkerFqName) }
             .map { generateWorkManagerFactory(it, codeGenDir) }
             .toList()
     }
@@ -57,7 +54,7 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
         annotatedClass: ClassReference,
         codeGenDir: File,
     ): GeneratedFile {
-        annotatedClass.checkClassExtendsType(coroutineWorkerFqName)
+        annotatedClass.checkClassExtendsType(COROUTINE_WORKER_FQ_NAME)
 
         val workerClassName = annotatedClass.asClassName()
         val factoryClassId = annotatedClass.generateClassName(suffix = "_AssistedFactory")
@@ -66,14 +63,14 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
 
         val factoryInterfaceSpec = interfaceBuilder(factoryClassName)
             .addAnnotation(DaggerClassName.assistedFactory)
-            .addAnnotation(contributesMultibindingAnnotation(PixnewsClassName.workManagerScope))
+            .addAnnotation(contributesMultibindingAnnotation(PixnewsWorkManagerClassName.workManagerScope))
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.coroutineWorkerMapKey)
+                    .builder(PixnewsWorkManagerClassName.coroutineWorkerMapKey)
                     .addMember("%T::class", workerClassName)
                     .build(),
             )
-            .addSuperinterface(PixnewsClassName.coroutineWorkerFactory)
+            .addSuperinterface(PixnewsWorkManagerClassName.coroutineWorkerFactory)
             .addFunction(createWorkerFunction(workerClassName))
             .build()
         val content = FileSpec.buildFile(generatedPackage, factoryClassName) {
@@ -91,16 +88,18 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
         return FunSpec.builder("create")
             .addModifiers(ABSTRACT, OVERRIDE, PUBLIC)
             .addParameter(
-                ParameterSpec.builder("context", AndroidClassName.context)
-                    .addAnnotation(PixnewsClassName.applicationContext)
+                ParameterSpec.builder("context", ANDROID_CONTEXT_CLASS_NAME)
+                    .addAnnotation(PixnewsWorkManagerClassName.applicationContext)
                     .build(),
             )
-            .addParameter("workerParameters", AndroidClassName.workerParameters)
+            .addParameter("workerParameters", WORKER_PARAMETERS_CLASS_NAME)
             .returns(workerClass)
             .build()
     }
 
-    private companion object {
-        private val coroutineWorkerFqName = FqName("androidx.work.CoroutineWorker")
+    internal companion object {
+        internal val ANDROID_CONTEXT_CLASS_NAME: ClassName = ClassName("android.content", "Context")
+        internal val WORKER_PARAMETERS_CLASS_NAME: ClassName = ClassName("androidx.work", "WorkerParameters")
+        private val COROUTINE_WORKER_FQ_NAME = FqName("androidx.work.CoroutineWorker")
     }
 }

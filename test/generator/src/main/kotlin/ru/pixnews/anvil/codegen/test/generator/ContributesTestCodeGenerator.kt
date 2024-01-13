@@ -24,9 +24,8 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeSpec
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.psi.KtFile
+import ru.pixnews.anvil.codegen.common.classname.AnvilClassName
 import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.classname.PixnewsClassName
-import ru.pixnews.anvil.codegen.common.fqname.FqNames
 import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
 import java.io.File
 
@@ -41,7 +40,7 @@ public class ContributesTestCodeGenerator : CodeGenerator {
     ): Collection<GeneratedFile> {
         return projectFiles
             .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(FqNames.contributesTest) }
+            .filter { it.isAnnotatedWith(PixnewsTestClassName.contributesTestFqName) }
             .map { generateTestModule(it, codeGenDir) }
             .toList()
     }
@@ -56,7 +55,7 @@ public class ContributesTestCodeGenerator : CodeGenerator {
 
         val moduleSpecBuilder = TypeSpec.objectBuilder(moduleClassName)
             .addAnnotation(DaggerClassName.module)
-            .addAnnotation(contributesToAnnotation(PixnewsClassName.appScope))
+            .addAnnotation(contributesToAnnotation(PixnewsTestClassName.appScope))
             .addFunction(generateProvideMethod(annotatedClass))
 
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
@@ -80,13 +79,13 @@ public class ContributesTestCodeGenerator : CodeGenerator {
             )
             .addAnnotation(
                 AnnotationSpec
-                    .builder(PixnewsClassName.singleIn)
-                    .addMember("%T::class", PixnewsClassName.appScope)
+                    .builder(AnvilClassName.singleIn)
+                    .addMember("%T::class", PixnewsTestClassName.appScope)
                     .build(),
             )
             .addParameter("injector", DaggerClassName.membersInjector.parameterizedBy(testClass))
-            .returns(PixnewsClassName.singleInstrumentedTestInjector)
-            .addStatement("return %T(injector)", PixnewsClassName.singleInstrumentedTestInjector)
+            .returns(PixnewsTestClassName.singleInstrumentedTestInjector)
+            .addStatement("return %T(injector)", PixnewsTestClassName.singleInstrumentedTestInjector)
             .build()
     }
 }

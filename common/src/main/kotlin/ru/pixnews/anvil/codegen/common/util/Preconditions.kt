@@ -19,14 +19,3 @@ public fun ClassReference.checkClassExtendsType(type: FqName) {
         )
     }
 }
-
-public fun ClassReference.checkClassExtendsAnyOfType(
-    vararg types: FqName,
-) {
-    if (allSuperTypeClassReferences().none { it.fqName in types }) {
-        throw AnvilCompilationExceptionClassReference(
-            message = "${this.fqName} doesn't extend any of $types",
-            classReference = this,
-        )
-    }
-}
