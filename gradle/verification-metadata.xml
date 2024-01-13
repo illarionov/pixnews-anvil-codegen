@@ -139,6 +139,11 @@
             <pgp value="719F7C29985A8E95F58F47194D8159D6A1159B69"/>
          </artifact>
       </component>
+      <component group="io.github.classgraph" name="classgraph" version="4.8.161">
+         <artifact name="classgraph-4.8.161.jar">
+            <pgp value="1F47744C9B6E14F2049C2857F1F111AF65925306"/>
+         </artifact>
+      </component>
       <component group="io.github.classgraph" name="classgraph" version="4.8.162">
          <artifact name="classgraph-4.8.162.jar">
             <pgp value="1F47744C9B6E14F2049C2857F1F111AF65925306"/>

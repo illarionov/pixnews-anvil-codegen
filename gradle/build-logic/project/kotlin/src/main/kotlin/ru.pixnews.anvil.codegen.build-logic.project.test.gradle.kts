@@ -51,7 +51,6 @@ testing {
                     "assertk",
                     "junit.jupiter.api",
                     "junit.jupiter.params",
-                    "kotlin.compile.testing",
                 ).forEach {
                     implementation(libs.findLibrary(it).get())
                 }
