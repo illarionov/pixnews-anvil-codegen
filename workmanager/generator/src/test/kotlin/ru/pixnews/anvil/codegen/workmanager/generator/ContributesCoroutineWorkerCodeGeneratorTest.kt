@@ -67,8 +67,12 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             public annotation class ApplicationContext
         """.trimIndent()
 
+        val contributesCoroutineWorkerStub = """
+            package ru.pixnews.anvil.codegen.workmanager.inject
+            public annotation class ContributesCoroutineWorker
+        """.trimIndent()
         val workmanagerDiStubs = """
-            package ru.pixnews.foundation.di.workmanager
+            package ru.pixnews.anvil.codegen.workmanager.inject.wiring
             import android.content.Context
             import androidx.work.CoroutineWorker
             import androidx.work.WorkerParameters
@@ -76,7 +80,6 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             import kotlin.reflect.KClass
 
             public abstract class WorkManagerScope private constructor()
-            public annotation class ContributesCoroutineWorker
             public annotation class CoroutineWorkerMapKey(val workerClass: KClass<out CoroutineWorker>)
 
             public interface CoroutineWorkerFactory {
@@ -96,7 +99,7 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             import dagger.assisted.Assisted
             import dagger.assisted.AssistedInject
             import ru.pixnews.foundation.di.base.qualifiers.ApplicationContext
-            import ru.pixnews.foundation.di.workmanager.ContributesCoroutineWorker
+            import ru.pixnews.anvil.codegen.workmanager.inject.ContributesCoroutineWorker
 
             @Suppress("UNUSED_PARAMETER")
             @ContributesCoroutineWorker
@@ -113,6 +116,7 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
         compilationResult = compileAnvil(
             sources = arrayOf(
                 androidContextStub,
+                contributesCoroutineWorkerStub,
                 workManagerStubs,
                 daggerStubs,
                 appContextQualifier,

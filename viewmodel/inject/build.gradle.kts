@@ -26,11 +26,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.ktx)
     api(libs.androidx.annotation)
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.fragment)
-    api(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.fragment.ktx)
+    api(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.androidx.lifecycle.viewmodel.compose)
     api(libs.anvil.annotations)
     api(libs.dagger)

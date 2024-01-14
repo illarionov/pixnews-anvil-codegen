@@ -11,22 +11,22 @@ import org.jetbrains.kotlin.name.FqName
 
 internal object PixnewsWorkManagerClassName {
     internal val contributesCoroutineWorkerFqName = FqName(
-        "ru.pixnews.foundation.di.workmanager.ContributesCoroutineWorker",
+        "ru.pixnews.anvil.codegen.workmanager.inject.ContributesCoroutineWorker",
     )
     internal val applicationContext = ClassName(
         "ru.pixnews.foundation.di.base.qualifiers",
         "ApplicationContext",
     )
     internal val coroutineWorkerFactory: ClassName = ClassName(
-        "ru.pixnews.foundation.di.workmanager",
+        "ru.pixnews.anvil.codegen.workmanager.inject.wiring",
         "CoroutineWorkerFactory",
     )
     internal val coroutineWorkerMapKey: ClassName = ClassName(
-        "ru.pixnews.foundation.di.workmanager",
+        "ru.pixnews.anvil.codegen.workmanager.inject.wiring",
         "CoroutineWorkerMapKey",
     )
     internal val workManagerScope: ClassName = ClassName(
-        "ru.pixnews.foundation.di.workmanager",
+        "ru.pixnews.anvil.codegen.workmanager.inject.wiring",
         "WorkManagerScope",
     )
 }
