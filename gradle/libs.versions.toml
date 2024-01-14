@@ -1,6 +1,10 @@
 [versions]
+androidMinSdk = "14"
+androidCompileSdk = "33"
+
 kotlin = "1.9.22"
 
+agp = "8.2.1"
 anvil = "2.4.8"
 auto-service = "1.1.1"
 assertk = "0.28.0"
@@ -16,6 +20,7 @@ spotless = "6.23.3"
 
 [libraries]
 anvil-annotations-optional = { group = "com.squareup.anvil", name = "annotations-optional", version.ref = "anvil" }
+anvil-annotations = { group = "com.squareup.anvil", name = "annotations", version.ref = "anvil" }
 anvil-compiler-api = { group = "com.squareup.anvil", name = "compiler-api", version.ref = "anvil" }
 anvil-compiler-utils = { group = "com.squareup.anvil", name = "compiler-utils", version.ref = "anvil" }
 auto-service-annotations = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "auto-service" }
@@ -23,6 +28,7 @@ auto-service-compiler = { group = "com.google.auto.service", name = "auto-servic
 assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+inject = { group = "javax.inject", name = "javax.inject", version = "1" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit5" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
@@ -32,6 +38,8 @@ kotlin-compile-testing = { group = "dev.zacsweers.kctfork", name = "core", versi
 kotlinpoet = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
 
 # Dependencies of the included build-logic
+agp-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+agp-plugin-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 diktat-plugin = { group = "com.saveourtool.diktat", name = "diktat-gradle-plugin", version.ref = "diktat" }
@@ -40,6 +48,7 @@ spotless-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gra
 gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-maven-publish-plugin" }
 
 [plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 gradle-maven-publish-plugin-base = { id = "com.vanniktech.maven.publish.base", version.ref = "gradle-maven-publish-plugin" }

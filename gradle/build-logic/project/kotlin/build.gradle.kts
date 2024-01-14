@@ -11,6 +11,8 @@ plugins {
 group = "ru.pixnews.anvil.codegen.build-logic.project"
 
 dependencies {
-    implementation(libs.kotlin.plugin)
+    implementation(libs.agp.plugin.api)
+    runtimeOnly(libs.agp.plugin)
     implementation(libs.gradle.maven.publish.plugin)
+    implementation(libs.kotlin.plugin)
 }

@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinJvm
 import ru.pixnews.anvil.codegen.buildlogic.project.publish.createAnvilCodegenVersionsExtension
@@ -12,7 +13,6 @@ import ru.pixnews.anvil.codegen.buildlogic.project.publish.createAnvilCodegenVer
  * Convention plugin with publishing defaults
  */
 plugins {
-    kotlin("jvm") apply false
     id("com.vanniktech.maven.publish.base")
 }
 
@@ -40,12 +40,24 @@ mavenPublishing {
             }
         }
     }
-    configure(
-        KotlinJvm(
-            javadocJar = JavadocJar.None(),
-            sourcesJar = true,
-        ),
-    )
+
+    plugins.withId("org.jetbrains.kotlin.jvm") {
+        configure(
+            KotlinJvm(
+                javadocJar = JavadocJar.None(),
+                sourcesJar = true,
+            ),
+        )
+    }
+    plugins.withId("com.android.library") {
+        configure(
+            AndroidSingleVariantLibrary(
+                variant = "release",
+                sourcesJar = true,
+                publishJavadocJar = false,
+            ),
+        )
+    }
 
     signAllPublications()
 
