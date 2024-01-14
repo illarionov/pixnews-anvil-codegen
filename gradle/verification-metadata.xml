@@ -45,6 +45,13 @@
          </trusted-key>
          <trusted-key id="7E22D50A7EBD9D2CD269B2D4056ACA74D46000BF" group="io.netty"/>
          <trusted-key id="837B2CBB1D966C80643A2D6527F164F945828C4C" group="^com[.]willowtreeapps($|([.].*))" regex="true"/>
+         <trusted-key id="8461EFA0E74ABAE010DE66994EB27DB2A3B88B8B">
+            <trusting group="androidx.activity"/>
+            <trusting group="androidx.annotation"/>
+            <trusting group="androidx.compose.runtime"/>
+            <trusting group="androidx.fragment"/>
+            <trusting group="androidx.lifecycle"/>
+         </trusted-key>
          <trusted-key id="8756C4F765C9AC3CB6B85D62379CE192D401AB61" group="com.diffplug.durian"/>
          <trusted-key id="90EE19787A7BCF6FD37A1E9180C08B1C29100955" group="com.squareup.retrofit2"/>
          <trusted-key id="95115197C5227C0887299D000F9FE62F88E938D8" group="com.google.dagger"/>
@@ -360,6 +367,11 @@
       <component group="org.jetbrains" name="annotations" version="13.0">
          <artifact name="annotations-13.0.jar">
             <pgp value="2E3A1AFFE42B5F53AF19F780BCF4173966770193"/>
+         </artifact>
+      </component>
+      <component group="org.jetbrains" name="annotations" version="23.0.0">
+         <artifact name="annotations-23.0.0.jar">
+            <pgp value="33FD4BFD33554634053D73C0C2148900BCD3C2AF"/>
          </artifact>
       </component>
       <component group="org.jetbrains.intellij.deps" name="trove4j" version="1.0.20200330">

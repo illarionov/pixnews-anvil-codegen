@@ -5,8 +5,7 @@
  */
 
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library")
-    id("ru.pixnews.anvil.codegen.build-logic.project.test")
+    id("ru.pixnews.anvil.codegen.build-logic.project.android.library")
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
@@ -16,5 +15,24 @@ version = anvilCodegenVersions.getSubmoduleVersionProvider(
     envVariableName = "ANVIL_CODEGEN_VIEWMODEL_INJECT_VERSION",
 ).get()
 
+android {
+    namespace = "ru.pixnews.anvil.codegen.viewmodel"
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+}
+
 dependencies {
+    implementation(libs.androidx.activity)
+    api(libs.androidx.annotation)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.fragment)
+    api(libs.androidx.lifecycle.viewmodel)
+    api(libs.androidx.lifecycle.viewmodel.compose)
+    api(libs.anvil.annotations)
+    api(libs.dagger)
+    api(libs.inject)
 }
