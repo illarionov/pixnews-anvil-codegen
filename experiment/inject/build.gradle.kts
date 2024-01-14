@@ -17,4 +17,5 @@ version = anvilCodegenVersions.getSubmoduleVersionProvider(
 ).get()
 
 dependencies {
+    api(libs.dagger)
 }

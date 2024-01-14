@@ -9,17 +9,22 @@ package ru.pixnews.anvil.codegen.experiment.generator
 import com.squareup.kotlinpoet.ClassName
 import org.jetbrains.kotlin.name.FqName
 
+@Suppress("BLANK_LINE_BETWEEN_PROPERTIES")
 internal object PixnewsExperimentClassName {
     private const val FEATURETOGGLES_PACKAGE = "ru.pixnews.foundation.featuretoggles"
-    private const val FEATURETOGGLES_INJECT_PACKAGE = "ru.pixnews.foundation.featuretoggles.inject"
+    private const val FEATURETOGGLES_INJECT_PACKAGE = "ru.pixnews.anvil.codegen.experiment.inject"
+    private const val FEATURETOGGLES_INJECT_WIRING_PACKAGE = "ru.pixnews.anvil.codegen.experiment.inject.wiring"
+
     internal val experiment = ClassName(FEATURETOGGLES_PACKAGE, "Experiment")
     internal val experimentFqName = FqName(experiment.canonicalName)
     internal val experimentVariantSerializer = ClassName(FEATURETOGGLES_PACKAGE, "ExperimentVariantSerializer")
     internal val experimentVariantSerializerFqName = FqName(experimentVariantSerializer.canonicalName)
+
     internal val contributesExperimentFqName = FqName("$FEATURETOGGLES_INJECT_PACKAGE.ContributesExperiment")
     internal val contributesExperimentVariantSerializerFqName = FqName(
         "$FEATURETOGGLES_INJECT_PACKAGE.ContributesExperimentVariantSerializer",
     )
-    internal val experimentScope = ClassName(FEATURETOGGLES_INJECT_PACKAGE, "ExperimentScope")
-    internal val experimentVariantMapKey = ClassName(FEATURETOGGLES_INJECT_PACKAGE, "ExperimentVariantMapKey")
+
+    internal val experimentScope = ClassName(FEATURETOGGLES_INJECT_WIRING_PACKAGE, "ExperimentScope")
+    internal val experimentVariantMapKey = ClassName(FEATURETOGGLES_INJECT_WIRING_PACKAGE, "ExperimentVariantMapKey")
 }

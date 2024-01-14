@@ -43,18 +43,21 @@ class ContributesExperimentCodeGeneratorTest {
             interface ExperimentVariantSerializer
             """.trimIndent(),
             """
-            package ru.pixnews.foundation.featuretoggles.inject
-            annotation class ExperimentVariantMapKey(val key: String)
+            package ru.pixnews.anvil.codegen.experiment.inject
             public annotation class ContributesExperiment
             public annotation class ContributesExperimentVariantSerializer(val experimentKey: String)
+            """.trimIndent(),
+            """
+            package ru.pixnews.anvil.codegen.experiment.inject.wiring
             public abstract class ExperimentScope private constructor()
+            annotation class ExperimentVariantMapKey(val key: String)
             """.trimIndent(),
             """
             package com.test
             import ru.pixnews.foundation.featuretoggles.Experiment
             import ru.pixnews.foundation.featuretoggles.ExperimentVariantSerializer
-            import ru.pixnews.foundation.featuretoggles.inject.ContributesExperiment
-            import ru.pixnews.foundation.featuretoggles.inject.ContributesExperimentVariantSerializer
+            import ru.pixnews.anvil.codegen.experiment.inject.ContributesExperiment
+            import ru.pixnews.anvil.codegen.experiment.inject.ContributesExperimentVariantSerializer
 
             @ContributesExperiment
             public object TestExperiment : Experiment {
