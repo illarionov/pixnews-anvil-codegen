@@ -37,12 +37,15 @@ class ContributesInitializerCodeGeneratorTest {
         public fun interface AsyncInitializer { public fun init() }
     """.trimIndent()
     private val initializersInjectCode = """
-        package ru.pixnews.foundation.initializers.inject
+        package ru.pixnews.anvil.codegen.initializer.inject
         import kotlin.reflect.KClass
-        public abstract class AppInitializersScope private constructor()
         public annotation class ContributesInitializer(
             val replaces: Array<KClass<*>> = [],
         )
+    """.trimIndent()
+    private val appInitializersScope = """
+        package ru.pixnews.anvil.codegen.initializer.inject.wiring
+        public abstract class AppInitializersScope private constructor()
     """.trimIndent()
     private val loggerStubCode = """
         package co.touchlab.kermit
@@ -63,7 +66,7 @@ class ContributesInitializerCodeGeneratorTest {
         import co.touchlab.kermit.Logger
         import com.google.firebase.FirebaseApp
         import ru.pixnews.foundation.initializers.AsyncInitializer
-        import ru.pixnews.foundation.initializers.inject.ContributesInitializer
+        import ru.pixnews.anvil.codegen.initializer.inject.ContributesInitializer
         import javax.inject.Provider
 
         @ContributesInitializer
@@ -80,7 +83,7 @@ class ContributesInitializerCodeGeneratorTest {
         import co.touchlab.kermit.Logger
         import com.google.firebase.FirebaseApp
         import ru.pixnews.foundation.initializers.AsyncInitializer
-        import ru.pixnews.foundation.initializers.inject.ContributesInitializer
+        import ru.pixnews.anvil.codegen.initializer.inject.ContributesInitializer
         import ru.pixnews.initializers.FirebaseInitializer
         import javax.inject.Provider
 
@@ -103,6 +106,7 @@ class ContributesInitializerCodeGeneratorTest {
         fun setup() {
             compilationResult = compileAnvil(
                 initializersInjectCode,
+                appInitializersScope,
                 firebaseStubCode,
                 initializerInterfacesCode,
                 javaxInjectProviderCode,
@@ -166,6 +170,7 @@ class ContributesInitializerCodeGeneratorTest {
         fun setup() {
             compilationResult = compileAnvil(
                 initializersInjectCode,
+                appInitializersScope,
                 firebaseStubCode,
                 initializerInterfacesCode,
                 javaxInjectProviderCode,
