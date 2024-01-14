@@ -19,10 +19,10 @@ internal object PixnewsInitializerClassName {
         "AsyncInitializer",
     )
     internal val appInitializersScope: ClassName = ClassName(
-        "ru.pixnews.foundation.initializers.inject",
+        "ru.pixnews.anvil.codegen.initializer.inject.wiring",
         "AppInitializersScope",
     )
     internal val contributesInitializerFqName = FqName(
-        "ru.pixnews.foundation.initializers.inject.ContributesInitializer",
+        "ru.pixnews.anvil.codegen.initializer.inject.ContributesInitializer",
     )
 }
