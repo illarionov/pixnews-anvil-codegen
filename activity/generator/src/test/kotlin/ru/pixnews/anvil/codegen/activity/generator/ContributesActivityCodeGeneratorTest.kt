@@ -38,14 +38,18 @@ class ContributesActivityCodeGeneratorTest {
     @BeforeAll
     @Suppress("LOCAL_VARIABLE_EARLY_DECLARATION")
     fun setup() {
-        val activityDiStubs = """
-            package ru.pixnews.foundation.di.ui.base.activity
+        val wiringActivityDiStubs = """
+            package ${PixnewsActivityClassName.ACTIVITY_PACKAGE}
             import android.app.Activity
             import dagger.MapKey
             import kotlin.reflect.KClass
 
             public abstract class ActivityScope private constructor()
             public annotation class ActivityMapKey(val activityClass: KClass<out Activity>)
+        """.trimIndent()
+
+        val contributeActivityAnnotationStub = """
+            package ${PixnewsActivityClassName.contributesActivity.parent().asString()}
             public annotation class ContributesActivity
         """.trimIndent()
 
@@ -58,7 +62,7 @@ class ContributesActivityCodeGeneratorTest {
             package com.test
 
             import android.app.Activity
-            import ru.pixnews.foundation.di.ui.base.activity.ContributesActivity
+            import ${PixnewsActivityClassName.contributesActivity.asString()}
 
             @ContributesActivity
             class TestActivity : Activity()
@@ -66,7 +70,8 @@ class ContributesActivityCodeGeneratorTest {
 
         compilationResult = compileAnvil(
             sources = arrayOf(
-                activityDiStubs,
+                wiringActivityDiStubs,
+                contributeActivityAnnotationStub,
                 androidActivityStub,
                 testActivity,
             ),

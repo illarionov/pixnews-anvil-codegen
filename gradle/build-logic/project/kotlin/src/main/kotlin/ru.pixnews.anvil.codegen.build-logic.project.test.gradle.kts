@@ -9,7 +9,7 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    kotlin("jvm") apply false
+    kotlin("jvm")
 }
 
 val libs = versionCatalogs.named("libs")

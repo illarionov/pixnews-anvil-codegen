@@ -5,8 +5,7 @@
  */
 
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library")
-    id("ru.pixnews.anvil.codegen.build-logic.project.test")
+    id("ru.pixnews.anvil.codegen.build-logic.project.android.library")
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
@@ -16,5 +15,13 @@ version = anvilCodegenVersions.getSubmoduleVersionProvider(
     envVariableName = "ANVIL_CODEGEN_ACTIVITY_INJECT_VERSION",
 ).get()
 
+android {
+    namespace = "ru.pixnews.anvil.codegen.activity"
+}
+
 dependencies {
+    api(libs.anvil.annotations)
+    api(libs.anvil.annotations.optional)
+    api(libs.dagger)
+    api(libs.inject)
 }
