@@ -5,9 +5,15 @@ androidCompileSdk = "33"
 kotlin = "1.9.22"
 
 agp = "8.2.1"
+androidx-activity = "1.8.2"
+androidx-annotation = "1.7.1"
+androidx-fragment = "1.6.2"
+androidx-lifecycle = "2.7.0"
 anvil = "2.4.8"
 auto-service = "1.1.1"
 assertk = "0.28.0"
+compose = "1.5.4"
+composeCompiler = "1.5.8"
 detekt = "1.23.4"
 dagger = "2.50"
 diktat = "2.0.0"
@@ -19,6 +25,12 @@ kotlinx-binary-compatibility-validator = "0.13.2"
 spotless = "6.23.3"
 
 [libraries]
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragment" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 anvil-annotations-optional = { group = "com.squareup.anvil", name = "annotations-optional", version.ref = "anvil" }
 anvil-annotations = { group = "com.squareup.anvil", name = "annotations", version.ref = "anvil" }
 anvil-compiler-api = { group = "com.squareup.anvil", name = "compiler-api", version.ref = "anvil" }
@@ -36,7 +48,6 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
 kotlin-compile-testing = { group = "dev.zacsweers.kctfork", name = "core", version.ref = "kotlin-compile-testing-fork" }
 kotlinpoet = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
-
 # Dependencies of the included build-logic
 agp-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 agp-plugin-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }

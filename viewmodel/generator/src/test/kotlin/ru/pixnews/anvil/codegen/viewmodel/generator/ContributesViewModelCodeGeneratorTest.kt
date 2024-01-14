@@ -51,14 +51,17 @@ class ContributesViewModelCodeGeneratorTest {
             interface ${featureManagerClass.simpleName}
         """.trimIndent()
 
+        val contributesViewModelStub = """
+            package ru.pixnews.anvil.codegen.viewmodel.inject
+            public annotation class ContributesViewModel
+        """.trimIndent()
         val baseDiViewModelStubs = """
-            package ru.pixnews.foundation.di.ui.base.viewmodel
+            package ru.pixnews.anvil.codegen.viewmodel.inject.wiring
 
             import androidx.lifecycle.ViewModel
             import androidx.lifecycle.CreationExtras
             import kotlin.reflect.KClass
 
-            public annotation class ContributesViewModel
             public annotation class ViewModelMapKey(val viewModelClass: KClass<out ViewModel>)
             public abstract class ViewModelScope private constructor()
 
@@ -73,7 +76,7 @@ class ContributesViewModelCodeGeneratorTest {
             import androidx.lifecycle.ViewModel
             import androidx.lifecycle.SavedStateHandle
             import ru.pixnews.foundation.featuretoggles.FeatureManager
-            import ru.pixnews.foundation.di.ui.base.viewmodel.ContributesViewModel
+            import ru.pixnews.anvil.codegen.viewmodel.inject.ContributesViewModel
 
             @Suppress("UNUSED_PARAMETER")
             @ContributesViewModel
@@ -85,6 +88,7 @@ class ContributesViewModelCodeGeneratorTest {
 
         compilationResult = compileAnvil(
             sources = arrayOf(
+                contributesViewModelStub,
                 baseDiViewModelStubs,
                 androidxLifecycleStubs,
                 featureTogglesStubs,

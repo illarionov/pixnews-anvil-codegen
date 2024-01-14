@@ -11,18 +11,18 @@ import org.jetbrains.kotlin.name.FqName
 
 internal object PixnewsViewModelClassName {
     internal val contributesViewModelFqName = FqName(
-        "ru.pixnews.foundation.di.ui.base.viewmodel.ContributesViewModel",
+        "ru.pixnews.anvil.codegen.viewmodel.inject.ContributesViewModel",
     )
     internal val viewModelFactory: ClassName = ClassName(
-        "ru.pixnews.foundation.di.ui.base.viewmodel",
+        "ru.pixnews.anvil.codegen.viewmodel.inject.wiring",
         "ViewModelFactory",
     )
     internal val viewModelMapKey: ClassName = ClassName(
-        "ru.pixnews.foundation.di.ui.base.viewmodel",
+        "ru.pixnews.anvil.codegen.viewmodel.inject.wiring",
         "ViewModelMapKey",
     )
     internal val viewModelScope: ClassName = ClassName(
-        "ru.pixnews.foundation.di.ui.base.viewmodel",
+        "ru.pixnews.anvil.codegen.viewmodel.inject.wiring",
         "ViewModelScope",
     )
 }
