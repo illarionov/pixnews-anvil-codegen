@@ -37,11 +37,13 @@ class ContributesTestCodeGeneratorTest {
     @BeforeAll
     @Suppress("LOCAL_VARIABLE_EARLY_DECLARATION")
     fun setup() {
-        val testStubs = """
-            package ru.pixnews.foundation.instrumented.test.di
-            import dagger.MembersInjector
-
+        val contributesTest = """
+            package ru.pixnews.anvil.codegen.test.inject
             annotation class ContributesTest
+        """.trimIndent()
+        val singleInstrumentedTestInjector = """
+            package ru.pixnews.anvil.codegen.test.inject.wiring
+            import dagger.MembersInjector
 
             @Suppress("UNUSED_PARAMETER")
             class SingleInstrumentedTestInjector(injector: MembersInjector<*>)
@@ -54,14 +56,15 @@ class ContributesTestCodeGeneratorTest {
 
         val testClass = """
             package com.test
-            import ru.pixnews.foundation.instrumented.test.di.ContributesTest
+            import ru.pixnews.anvil.codegen.test.inject.ContributesTest
 
             @ContributesTest
             class MainTest
         """.trimIndent()
         compilationResult = compileAnvil(
             sources = arrayOf(
-                testStubs,
+                contributesTest,
+                singleInstrumentedTestInjector,
                 appScopeStub,
                 testClass,
             ),

@@ -15,10 +15,10 @@ internal object PixnewsTestClassName {
         "AppScope",
     )
     internal val contributesTestFqName = FqName(
-        "ru.pixnews.foundation.instrumented.test.di.ContributesTest",
+        "ru.pixnews.anvil.codegen.test.inject.ContributesTest",
     )
     internal val singleInstrumentedTestInjector: ClassName = ClassName(
-        "ru.pixnews.foundation.instrumented.test.di",
+        "ru.pixnews.anvil.codegen.test.inject.wiring",
         "SingleInstrumentedTestInjector",
     )
 }
