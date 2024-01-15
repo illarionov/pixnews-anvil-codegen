@@ -16,13 +16,13 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 kotlin {
     explicitApi = ExplicitApiMode.Warning
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = JvmTarget.JVM_11
         languageVersion = KOTLIN_1_9
         apiVersion = KOTLIN_1_9
         freeCompilerArgs.addAll(

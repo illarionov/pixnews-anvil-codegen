@@ -8,15 +8,16 @@
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
+/*
+ * Convention plugin that configures unit tests in projects with the Kotlin Multiplatform plugin
+ */
+
 plugins {
     kotlin("jvm")
 }
 
 val libs = versionCatalogs.named("libs")
 
-/*
- * Convention plugin that configures unit tests in projects with the Kotlin Multiplatform plugin
- */
 testing {
     suites {
         getByName<JvmTestSuite>("test") {
