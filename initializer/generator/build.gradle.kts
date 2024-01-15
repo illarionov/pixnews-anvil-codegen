@@ -6,6 +6,7 @@
 
 plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.generator")
+    id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
 group = "ru.pixnews.anvil.codegen.initializer"

@@ -18,6 +18,7 @@ include("test-utils")
 listOf(
     "activity",
     "experiment",
+    "fragment",
     "initializer",
     "test",
     "viewmodel",
