@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.name.FqName
 
 internal object PixnewsTestClassName {
     internal val appScope: ClassName = ClassName(
-        "ru.pixnews.foundation.di.base.scope",
+        "ru.pixnews.foundation.di.base.scopes",
         "AppScope",
     )
     internal val contributesTestFqName = FqName(
