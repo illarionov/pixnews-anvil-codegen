@@ -50,7 +50,7 @@ class ContributesTestCodeGeneratorTest {
         """.trimIndent()
 
         val appScopeStub = """
-            package ru.pixnews.foundation.di.base.scope
+            package ru.pixnews.foundation.di.base.scopes
             public abstract class AppScope private constructor()
         """.trimIndent()
 
