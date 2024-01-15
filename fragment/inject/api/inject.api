@@ -1,0 +1,10 @@
+public abstract interface annotation class ru/pixnews/anvil/codegen/fragment/inject/ContributesFragment : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class ru/pixnews/anvil/codegen/fragment/inject/wiring/FragmentKey : java/lang/annotation/Annotation {
+	public abstract fun fragmentClass ()Ljava/lang/Class;
+}
+
+public abstract class ru/pixnews/anvil/codegen/fragment/inject/wiring/FragmentScope {
+}
+
