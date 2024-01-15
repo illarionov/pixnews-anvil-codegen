@@ -16,6 +16,15 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.test")
 }
 
+kotlin {
+    compilerOptions {
+        optIn.addAll(
+            "kotlin.RequiresOptIn",
+            "ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi",
+        )
+    }
+}
+
 dependencies {
     val libs = versionCatalogs.named("libs")
 
@@ -27,6 +36,7 @@ dependencies {
     ) {
         exclude(module = "kotlin-reflect")
     }
+    compileOnly(libs.findLibrary("anvil.annotations").get())
     implementation(project(":common"))
 
     testImplementation(libs.findLibrary("anvil.annotations.optional").get())

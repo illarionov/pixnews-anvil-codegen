@@ -7,7 +7,9 @@
 package ru.pixnews.anvil.codegen.common.classname
 
 import com.squareup.kotlinpoet.ClassName
+import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
 
+@InternalPixnewsAnvilCodegenApi
 public object AnvilClassName {
     private const val ANVIL_ANNOTATIONS_PACKAGE = "com.squareup.anvil.annotations"
 
@@ -18,6 +20,7 @@ public object AnvilClassName {
     internal val contributesTo: ClassName = ClassName(ANVIL_ANNOTATIONS_PACKAGE, "ContributesTo")
 
     @JvmStatic
+    @InternalPixnewsAnvilCodegenApi
     public val singleIn: ClassName = ClassName(
         "com.squareup.anvil.annotations.optional",
         "SingleIn",
