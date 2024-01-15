@@ -11,6 +11,7 @@ import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
  */
 plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.auto.service")
+    id("ru.pixnews.anvil.codegen.build-logic.project.binary.compatibility.validator")
     id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library")
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
     id("ru.pixnews.anvil.codegen.build-logic.project.test")
