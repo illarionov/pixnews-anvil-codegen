@@ -6,6 +6,7 @@
 
 plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.android.library")
+    id("ru.pixnews.anvil.codegen.build-logic.project.binary.compatibility.validator")
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 

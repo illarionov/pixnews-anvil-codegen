@@ -9,12 +9,15 @@ package ru.pixnews.anvil.codegen.common.util
 import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.ParameterReference
 import com.squareup.kotlinpoet.TypeName
+import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
 
+@InternalPixnewsAnvilCodegenApi
 public class ConstructorParameter(
     public val name: String,
     public val resolvedType: TypeName,
 )
 
+@InternalPixnewsAnvilCodegenApi
 public fun List<ParameterReference>.parseConstructorParameters(
     implementingClass: ClassReference,
 ): List<ConstructorParameter> = this.map {

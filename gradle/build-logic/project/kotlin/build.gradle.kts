@@ -15,4 +15,5 @@ dependencies {
     runtimeOnly(libs.agp.plugin)
     implementation(libs.gradle.maven.publish.plugin)
     implementation(libs.kotlin.plugin)
+    implementation(libs.kotlinx.binary.compatibility.validator)
 }

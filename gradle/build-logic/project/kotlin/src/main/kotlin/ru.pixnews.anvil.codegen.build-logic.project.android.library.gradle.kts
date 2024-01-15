@@ -9,6 +9,9 @@ import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9
 
+/**
+ * Convention plugin for use in android library inject-modules
+ */
 plugins {
     id("com.android.library")
     kotlin("android")

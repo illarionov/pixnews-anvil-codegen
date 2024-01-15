@@ -10,7 +10,9 @@ import com.squareup.anvil.compiler.internal.reference.AnvilCompilationExceptionC
 import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.allSuperTypeClassReferences
 import org.jetbrains.kotlin.name.FqName
+import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
 
+@InternalPixnewsAnvilCodegenApi
 public fun ClassReference.checkClassExtendsType(type: FqName) {
     if (allSuperTypeClassReferences().none { it.fqName == type }) {
         throw AnvilCompilationExceptionClassReference(

@@ -9,11 +9,13 @@ package ru.pixnews.anvil.codegen.common.util
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
+import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
 import ru.pixnews.anvil.codegen.common.classname.AnvilClassName
 
 /**
  * `@ContributesTo(className::class, replaces = [..])`
  */
+@InternalPixnewsAnvilCodegenApi
 public fun contributesToAnnotation(
     className: ClassName,
     replaces: List<TypeName> = emptyList(),
@@ -34,6 +36,7 @@ public fun contributesToAnnotation(
 /**
  * `@ContributesTo(className::class)`
  */
+@InternalPixnewsAnvilCodegenApi
 public fun contributesMultibindingAnnotation(scope: ClassName): AnnotationSpec {
     return AnnotationSpec.builder(AnvilClassName.contributesMultibinding)
         .addMember("scope = %T::class", scope)

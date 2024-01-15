@@ -11,9 +11,19 @@ import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
  */
 plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.auto.service")
+    id("ru.pixnews.anvil.codegen.build-logic.project.binary.compatibility.validator")
     id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library")
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
     id("ru.pixnews.anvil.codegen.build-logic.project.test")
+}
+
+kotlin {
+    compilerOptions {
+        optIn.addAll(
+            "kotlin.RequiresOptIn",
+            "ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi",
+        )
+    }
 }
 
 dependencies {
@@ -27,6 +37,7 @@ dependencies {
     ) {
         exclude(module = "kotlin-reflect")
     }
+    compileOnly(libs.findLibrary("anvil.annotations").get())
     implementation(project(":common"))
 
     testImplementation(libs.findLibrary("anvil.annotations.optional").get())

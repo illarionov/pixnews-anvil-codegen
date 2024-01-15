@@ -7,7 +7,9 @@
 package ru.pixnews.anvil.codegen.common.classname
 
 import com.squareup.kotlinpoet.ClassName
+import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
 
+@InternalPixnewsAnvilCodegenApi
 public object DaggerClassName {
     @JvmStatic
     public val assistedFactory: ClassName = ClassName("dagger.assisted", "AssistedFactory")
