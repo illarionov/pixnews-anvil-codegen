@@ -4,6 +4,6 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
 
-package ru.pixnews.anvil.codegen.activity.inject.wiring
+package ru.pixnews.anvil.codegen.fragment.inject
 
-public abstract class ActivityScope private constructor()
+public abstract class FragmentScope private constructor()

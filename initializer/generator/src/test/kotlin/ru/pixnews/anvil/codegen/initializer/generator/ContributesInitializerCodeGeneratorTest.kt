@@ -44,7 +44,7 @@ class ContributesInitializerCodeGeneratorTest {
         )
     """.trimIndent()
     private val appInitializersScope = """
-        package ru.pixnews.anvil.codegen.initializer.inject.wiring
+        package ru.pixnews.anvil.codegen.initializer.inject
         public abstract class AppInitializersScope private constructor()
     """.trimIndent()
     private val loggerStubCode = """

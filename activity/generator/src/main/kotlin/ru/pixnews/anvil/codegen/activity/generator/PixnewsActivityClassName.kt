@@ -10,8 +10,8 @@ import com.squareup.kotlinpoet.ClassName
 import org.jetbrains.kotlin.name.FqName
 
 internal object PixnewsActivityClassName {
-    internal const val ACTIVITY_PACKAGE = "ru.pixnews.anvil.codegen.activity.inject.wiring"
-    internal val activityMapKey = ClassName(ACTIVITY_PACKAGE, "ActivityMapKey")
+    internal const val ACTIVITY_PACKAGE = "ru.pixnews.anvil.codegen.activity.inject"
+    internal val activityMapKey = ClassName("ru.pixnews.anvil.codegen.activity.inject.wiring", "ActivityMapKey")
     internal val activityScope = ClassName(ACTIVITY_PACKAGE, "ActivityScope")
-    internal val contributesActivity = FqName("ru.pixnews.anvil.codegen.activity.inject.ContributesActivity")
+    internal val contributesActivity = FqName("$ACTIVITY_PACKAGE.ContributesActivity")
 }

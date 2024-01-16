@@ -25,6 +25,6 @@ internal object PixnewsExperimentClassName {
         "$FEATURETOGGLES_INJECT_PACKAGE.ContributesExperimentVariantSerializer",
     )
 
-    internal val experimentScope = ClassName(FEATURETOGGLES_INJECT_WIRING_PACKAGE, "ExperimentScope")
+    internal val experimentScope = ClassName(FEATURETOGGLES_INJECT_PACKAGE, "ExperimentScope")
     internal val experimentVariantMapKey = ClassName(FEATURETOGGLES_INJECT_WIRING_PACKAGE, "ExperimentVariantMapKey")
 }

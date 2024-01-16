@@ -4,6 +4,6 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
 
-package ru.pixnews.anvil.codegen.experiment.inject.wiring
+package ru.pixnews.anvil.codegen.workmanager.inject
 
-public abstract class ExperimentScope private constructor()
+public abstract class WorkManagerScope private constructor()

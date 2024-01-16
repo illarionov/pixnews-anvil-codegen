@@ -67,11 +67,12 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             public annotation class ApplicationContext
         """.trimIndent()
 
-        val contributesCoroutineWorkerStub = """
+        val workManagerInjectStubs = """
             package ru.pixnews.anvil.codegen.workmanager.inject
+            public abstract class WorkManagerScope private constructor()
             public annotation class ContributesCoroutineWorker
         """.trimIndent()
-        val workmanagerDiStubs = """
+        val workmanagerWiringStubs = """
             package ru.pixnews.anvil.codegen.workmanager.inject.wiring
             import android.content.Context
             import androidx.work.CoroutineWorker
@@ -79,7 +80,6 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             import ru.pixnews.foundation.di.base.qualifiers.ApplicationContext
             import kotlin.reflect.KClass
 
-            public abstract class WorkManagerScope private constructor()
             public annotation class CoroutineWorkerMapKey(val workerClass: KClass<out CoroutineWorker>)
 
             public interface CoroutineWorkerFactory {
@@ -116,11 +116,11 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
         compilationResult = compileAnvil(
             sources = arrayOf(
                 androidContextStub,
-                contributesCoroutineWorkerStub,
+                workManagerInjectStubs,
                 workManagerStubs,
                 daggerStubs,
                 appContextQualifier,
-                workmanagerDiStubs,
+                workmanagerWiringStubs,
                 testWorker,
             ),
         )

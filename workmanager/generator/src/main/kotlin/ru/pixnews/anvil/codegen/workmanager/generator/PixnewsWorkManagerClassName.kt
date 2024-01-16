@@ -26,7 +26,7 @@ internal object PixnewsWorkManagerClassName {
         "CoroutineWorkerMapKey",
     )
     internal val workManagerScope: ClassName = ClassName(
-        "ru.pixnews.anvil.codegen.workmanager.inject.wiring",
+        "ru.pixnews.anvil.codegen.workmanager.inject",
         "WorkManagerScope",
     )
 }
