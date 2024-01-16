@@ -44,12 +44,12 @@ class ContributesExperimentCodeGeneratorTest {
             """.trimIndent(),
             """
             package ru.pixnews.anvil.codegen.experiment.inject
+            public abstract class ExperimentScope private constructor()
             public annotation class ContributesExperiment
             public annotation class ContributesExperimentVariantSerializer(val experimentKey: String)
             """.trimIndent(),
             """
             package ru.pixnews.anvil.codegen.experiment.inject.wiring
-            public abstract class ExperimentScope private constructor()
             annotation class ExperimentVariantMapKey(val key: String)
             """.trimIndent(),
             """

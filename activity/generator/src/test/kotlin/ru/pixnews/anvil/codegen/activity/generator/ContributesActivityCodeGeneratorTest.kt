@@ -39,17 +39,17 @@ class ContributesActivityCodeGeneratorTest {
     @Suppress("LOCAL_VARIABLE_EARLY_DECLARATION")
     fun setup() {
         val wiringActivityDiStubs = """
-            package ${PixnewsActivityClassName.ACTIVITY_PACKAGE}
+            package ${activityMapKey.packageName}
             import android.app.Activity
             import dagger.MapKey
             import kotlin.reflect.KClass
 
-            public abstract class ActivityScope private constructor()
             public annotation class ActivityMapKey(val activityClass: KClass<out Activity>)
         """.trimIndent()
 
         val contributeActivityAnnotationStub = """
-            package ${PixnewsActivityClassName.contributesActivity.parent().asString()}
+            package ${PixnewsActivityClassName.ACTIVITY_PACKAGE}
+            public abstract class ActivityScope private constructor()
             public annotation class ContributesActivity
         """.trimIndent()
 

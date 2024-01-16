@@ -22,7 +22,7 @@ internal object PixnewsViewModelClassName {
         "ViewModelMapKey",
     )
     internal val viewModelScope: ClassName = ClassName(
-        "ru.pixnews.anvil.codegen.viewmodel.inject.wiring",
+        "ru.pixnews.anvil.codegen.viewmodel.inject",
         "ViewModelScope",
     )
 }

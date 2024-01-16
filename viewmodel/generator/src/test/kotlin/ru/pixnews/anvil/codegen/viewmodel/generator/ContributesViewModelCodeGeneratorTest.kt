@@ -54,6 +54,7 @@ class ContributesViewModelCodeGeneratorTest {
         val contributesViewModelStub = """
             package ru.pixnews.anvil.codegen.viewmodel.inject
             public annotation class ContributesViewModel
+            public abstract class ViewModelScope private constructor()
         """.trimIndent()
         val baseDiViewModelStubs = """
             package ru.pixnews.anvil.codegen.viewmodel.inject.wiring
@@ -63,7 +64,6 @@ class ContributesViewModelCodeGeneratorTest {
             import kotlin.reflect.KClass
 
             public annotation class ViewModelMapKey(val viewModelClass: KClass<out ViewModel>)
-            public abstract class ViewModelScope private constructor()
 
             public fun interface ViewModelFactory {
                 public fun create(creationExtras: CreationExtras): ViewModel
