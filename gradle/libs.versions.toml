@@ -21,7 +21,7 @@ diktat = "2.0.0"
 gradle-maven-publish-plugin = "0.27.0"
 junit5 = "5.10.1"
 kotlin-compile-testing-fork = "0.4.0"
-kotlinpoet = "1.15.3"
+kotlinpoet = "1.16.0"
 kotlinx-binary-compatibility-validator = "0.13.2"
 spotless = "6.23.3"
 
