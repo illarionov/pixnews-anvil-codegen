@@ -1,12 +1,3 @@
 public abstract interface annotation class ru/pixnews/anvil/codegen/common/InternalPixnewsAnvilCodegenApi : java/lang/annotation/Annotation {
 }
 
-public final class ru/pixnews/anvil/codegen/common/util/AnnotationSpecsKt {
-}
-
-public final class ru/pixnews/anvil/codegen/common/util/ConstructorParameterKt {
-}
-
-public final class ru/pixnews/anvil/codegen/common/util/PreconditionsKt {
-}
-
