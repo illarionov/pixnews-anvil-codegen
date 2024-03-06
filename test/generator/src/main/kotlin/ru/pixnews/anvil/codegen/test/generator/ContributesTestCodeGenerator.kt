@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.test.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
@@ -37,7 +37,7 @@ public class ContributesTestCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         return projectFiles
             .classAndInnerClassReferences(module)
             .filter { it.isAnnotatedWith(PixnewsTestClassName.contributesTestFqName) }
@@ -48,7 +48,7 @@ public class ContributesTestCodeGenerator : CodeGenerator {
     private fun generateTestModule(
         annotatedClass: ClassReference,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         val moduleClassId = annotatedClass.generateClassName(suffix = "_TestModule")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
         val moduleClassName = moduleClassId.relativeClassName.asString()
@@ -61,7 +61,13 @@ public class ContributesTestCodeGenerator : CodeGenerator {
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
             addType(moduleSpecBuilder.build())
         }
-        return createGeneratedFile(codeGenDir, generatedPackage, moduleClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = moduleClassName,
+            content = content,
+            sourceFile = annotatedClass.containingFileAsJavaFile,
+        )
     }
 
     private fun generateProvideMethod(

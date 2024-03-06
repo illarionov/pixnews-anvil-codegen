@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.workmanager.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
@@ -42,7 +42,7 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         return projectFiles
             .classAndInnerClassReferences(module)
             .filter { it.isAnnotatedWith(PixnewsWorkManagerClassName.contributesCoroutineWorkerFqName) }
@@ -53,7 +53,7 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
     private fun generateWorkManagerFactory(
         annotatedClass: ClassReference,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         annotatedClass.checkClassExtendsType(COROUTINE_WORKER_FQ_NAME)
 
         val workerClassName = annotatedClass.asClassName()
@@ -76,7 +76,13 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
         val content = FileSpec.buildFile(generatedPackage, factoryClassName) {
             addType(factoryInterfaceSpec)
         }
-        return createGeneratedFile(codeGenDir, generatedPackage, factoryClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = factoryClassName,
+            content = content,
+            sourceFile = annotatedClass.containingFileAsJavaFile,
+        )
     }
 
     /**

@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.initializer.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.asClassName
 import com.squareup.anvil.compiler.internal.buildFile
@@ -42,7 +42,7 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         return projectFiles
             .classAndInnerClassReferences(module)
             .filter { it.isAnnotatedWith(PixnewsInitializerClassName.contributesInitializerFqName) }
@@ -53,7 +53,7 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
     private fun generateInitializerModule(
         annotatedClass: ClassReference,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         val boundType = checkNotNull(annotatedClass.getInitializerBoundType()) {
             "${annotatedClass.fqName} doesn't extend any of ${PixnewsInitializerClassName.initializer} " +
                     "or ${PixnewsInitializerClassName.asyncInitializer}"
@@ -89,7 +89,13 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
             addType(moduleSpecBuilder.build())
         }
 
-        return createGeneratedFile(codeGenDir, generatedPackage, moduleClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = moduleClassName,
+            content = content,
+            sourceFile = annotatedClass.containingFileAsJavaFile,
+        )
     }
 
     private fun generateProvideMethod(

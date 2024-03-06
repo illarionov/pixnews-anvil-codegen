@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.experiment.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
@@ -41,7 +41,7 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         val experimentAnnotatedClass = projectFiles.classAndInnerClassReferences(module)
             .filter { classRef ->
                 classRef.annotations.any { annotationRef ->
@@ -61,7 +61,7 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
     private fun generateExperimentModule(
         annotatedClasses: Collection<ClassReference.Psi>,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         val moduleClassId = annotatedClasses.first().generateClassName(suffix = "_Experiments_Module")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
         val moduleClassName = moduleClassId.relativeClassName.asString()
@@ -77,7 +77,13 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
             addType(moduleTypeSpecBuilder.build())
         }
-        return createGeneratedFile(codeGenDir, generatedPackage, moduleClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = moduleClassName,
+            content = content,
+            sourceFiles = annotatedClasses.mapTo(sortedSetOf(), ClassReference.Psi::containingFileAsJavaFile),
+        )
     }
 
     private fun generateProvidesMethod(annotatedClass: ClassReference): FunSpec {
