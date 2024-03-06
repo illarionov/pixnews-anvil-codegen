@@ -11,5 +11,5 @@ plugins {
 group = "ru.pixnews.anvil.codegen.build-logic.settings"
 
 dependencies {
-    implementation("com.gradle:gradle-enterprise-gradle-plugin:3.16.1")
+    implementation("com.gradle:gradle-enterprise-gradle-plugin:3.16.2")
 }
