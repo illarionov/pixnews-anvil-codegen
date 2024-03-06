@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.activity.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
@@ -42,7 +42,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         return projectFiles
             .classAndInnerClassReferences(module)
             .filter { it.isAnnotatedWith(PixnewsActivityClassName.contributesActivity) }
@@ -53,7 +53,7 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
     private fun generateActivityModule(
         annotatedClass: ClassReference,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         annotatedClass.checkClassExtendsType(ANDROID_ACTIVITY_FQ_NAME)
 
         val moduleClassId = annotatedClass.generateClassName(suffix = "_ActivityModule")
@@ -69,7 +69,13 @@ public class ContributesActivityCodeGenerator : CodeGenerator {
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
             addType(moduleInterfaceSpec)
         }
-        return createGeneratedFile(codeGenDir, generatedPackage, moduleClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = moduleClassName,
+            content = content,
+            sourceFile = annotatedClass.containingFileAsJavaFile,
+        )
     }
 
     private fun generateBindMethod(

@@ -9,7 +9,7 @@ package ru.pixnews.anvil.codegen.viewmodel.generator
 import com.google.auto.service.AutoService
 import com.squareup.anvil.compiler.api.AnvilContext
 import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFile
+import com.squareup.anvil.compiler.api.GeneratedFileWithSources
 import com.squareup.anvil.compiler.api.createGeneratedFile
 import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
@@ -42,7 +42,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
         codeGenDir: File,
         module: ModuleDescriptor,
         projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFile> {
+    ): Collection<GeneratedFileWithSources> {
         return projectFiles
             .classAndInnerClassReferences(module)
             .filter { it.isAnnotatedWith(PixnewsViewModelClassName.contributesViewModelFqName) }
@@ -53,7 +53,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
     private fun generateViewModelModule(
         annotatedClass: ClassReference,
         codeGenDir: File,
-    ): GeneratedFile {
+    ): GeneratedFileWithSources {
         annotatedClass.checkClassExtendsType(VIEW_MODEL_FQ_NAME)
 
         val moduleClassId = annotatedClass.generateClassName(suffix = "_FactoryModule")
@@ -68,7 +68,13 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
         val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
             addType(moduleInterfaceSpecBuilder.build())
         }
-        return createGeneratedFile(codeGenDir, generatedPackage, moduleClassName, content)
+        return createGeneratedFile(
+            codeGenDir = codeGenDir,
+            packageName = generatedPackage,
+            fileName = moduleClassName,
+            content = content,
+            sourceFile = annotatedClass.containingFileAsJavaFile,
+        )
     }
 
     private fun generateProvidesFactoryMethod(
@@ -121,6 +127,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
             simpleName = "createSavedStateHandle",
             isExtension = true,
         )
+
         private fun ConstructorParameter.isSavedStateHandle(): Boolean = resolvedType == SAVED_STATE_HANDLE_CLASS_NAME
     }
 }
