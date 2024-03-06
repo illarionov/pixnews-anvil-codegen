@@ -1,6 +1,6 @@
 [versions]
-androidMinSdk = "14"
-androidCompileSdk = "33"
+androidMinSdk = "21"
+androidCompileSdk = "34"
 
 kotlin = "1.9.22"
 
