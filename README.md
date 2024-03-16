@@ -53,8 +53,8 @@ Add the required dependencies
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.activity:generator:0.2")
-    api("ru.pixnews.anvil.codegen.activity:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.activity:generator:0.3")
+    api("ru.pixnews.anvil.codegen.activity:inject:0.3")
 }
 ```
 
@@ -165,8 +165,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.viewmodel:generator:0.2")
-    api("ru.pixnews.anvil.codegen.viewmodel:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.viewmodel:generator:0.3")
+    api("ru.pixnews.anvil.codegen.viewmodel:inject:0.3")
 }
 ```
 
@@ -321,8 +321,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.workmanager:generator:0.2")
-    api("ru.pixnews.anvil.codegen.workmanager:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.workmanager:generator:0.3")
+    api("ru.pixnews.anvil.codegen.workmanager:inject:0.3")
 }
 ```
 
@@ -480,8 +480,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.test:generator:0.2")
-    api("ru.pixnews.anvil.codegen.test:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.test:generator:0.3")
+    api("ru.pixnews.anvil.codegen.test:inject:0.3")
 }
 ```
 
@@ -589,8 +589,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.experiment:generator:0.2")
-    api("ru.pixnews.anvil.codegen.experiment:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.experiment:generator:0.3")
+    api("ru.pixnews.anvil.codegen.experiment:inject:0.3")
 }
 ```
 
@@ -670,8 +670,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen.initializer:generator:0.2")
-    api("ru.pixnews.anvil.codegen.initializer:inject:0.2")
+    anvil("ru.pixnews.anvil.codegen.initializer:generator:0.3")
+    api("ru.pixnews.anvil.codegen.initializer:inject:0.3")
 }
 ```
 

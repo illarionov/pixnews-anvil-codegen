@@ -1,5 +1,12 @@
 # Change Log
 
+## Version 0.3
+
+*2024-03-15*
+
+- Update Anvil to 2.5.0-beta04
+- Update some other dependencies
+
 ## Version 0.2
 
 *2024-03-06*
