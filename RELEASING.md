@@ -9,7 +9,7 @@
 7. Merge pull-request 
 8. `git checkout main && git pull origin`
 9. `git tag -a X.Y.Z -m "Version X.Y.Z" && git push --tags` (where X.Y.Z is the new version)
-10. Trigger publish workflow for the ew tag in GitHub Actions
+10. Trigger publish workflow for the new tag in GitHub Actions
 11. Update the `config/version.properties` to the next SNAPSHOT version.
 12. `git commit -am "Prepare next development version."`
 13. `git push origin`
