@@ -170,6 +170,11 @@
             <pgp value="BDB5FA4FE719D787FB3D3197F6D4A1D411E9D1AE"/>
          </artifact>
       </component>
+      <component group="com.google.truth" name="truth" version="1.4.2">
+         <artifact name="truth-1.4.2.jar">
+            <pgp value="BDB5FA4FE719D787FB3D3197F6D4A1D411E9D1AE"/>
+         </artifact>
+      </component>
       <component group="com.googlecode.concurrent-trees" name="concurrent-trees" version="2.6.1">
          <artifact name="concurrent-trees-2.6.1.jar">
             <pgp value="A9789342F598AD5B1175EF357EB97D110DFADD60"/>
