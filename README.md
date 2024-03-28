@@ -1,9 +1,12 @@
 # Pixnews Anvil codegen
 
-Some Anvil code generators originally used in [Pixnews](https://github.com/illarionov/Pixnews) Android application. Published as examples of possible
+Some [Anvil] code generators originally used in [Pixnews](https://github.com/illarionov/Pixnews) Android application. Published as examples of possible
 recipes with Anvil generators.
 
-Heavily Based on the [Whenstone](https://github.com/deliveryhero/whetstone) project.
+Simplifies the creation of [Dagger] components and modules using the [Anvil] compiler plugin
+
+[Anvil]: https://github.com/square/anvil
+[Dagger]: https://github.com/google/dagger
 
 ## Installation
 
@@ -763,6 +766,20 @@ object TestStrictModeInitializer_InitializerModule {
   )
 }
 ```
+
+## Other generator samples
+Some other good reposotories with Anvil generators
+
+* https://github.com/deliveryhero/whetstone  
+    Whetstone, DI framework for Android that greatly simplifies working with Dagger 2 using Anvil
+* https://github.com/RBusarow/Tangle  
+    Tangle, android injection using the Anvil compiler plugin
+* https://github.com/duckduckgo/Android/tree/develop/anvil/anvil-compiler/src/main/java/com/duckduckgo/anvil/compiler  
+    Generators from the DuckDuckGo Android App  
+* https://github.com/SteinerOk/sealant/  
+    Some code generators
+* https://slackhq.github.io/circuit/code-gen/  
+    Sample of the KSP-based code generator that works both with Anvil and Hilt
 
 ## Contributing
 
