@@ -5,7 +5,6 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
-group = "ru.pixnews.anvil.codegen.workmanager"
 version = anvilCodegenVersions.getSubmoduleVersionProvider(
     propertiesFileKey = "anvil_codegen_workmanager_generator_version",
     envVariableName = "ANVIL_CODEGEN_WORKMANAGER_GENERATOR_VERSION",

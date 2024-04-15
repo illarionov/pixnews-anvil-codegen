@@ -10,7 +10,6 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
-group = "ru.pixnews.anvil.codegen.activity"
 version = anvilCodegenVersions.getSubmoduleVersionProvider(
     propertiesFileKey = "anvil_codegen_activity_inject_version",
     envVariableName = "ANVIL_CODEGEN_ACTIVITY_INJECT_VERSION",

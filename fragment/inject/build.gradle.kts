@@ -9,7 +9,7 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.binary.compatibility.validator")
 }
 
-group = "ru.pixnews.anvil.codegen.fragment"
+group = "ru.pixnews.anvil.codegen"
 version = "0.1-WIP"
 
 android {

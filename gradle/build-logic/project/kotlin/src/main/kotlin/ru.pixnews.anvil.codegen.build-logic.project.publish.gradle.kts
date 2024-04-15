@@ -16,6 +16,8 @@ plugins {
     id("com.vanniktech.maven.publish.base")
 }
 
+group = "ru.pixnews.anvil.codegen"
+
 createAnvilCodegenVersionsExtension()
 
 tasks.withType<AbstractArchiveTask>().configureEach {
