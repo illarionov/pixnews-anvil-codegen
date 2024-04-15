@@ -9,7 +9,6 @@ plugins {
     id("ru.pixnews.anvil.codegen.build-logic.project.publish")
 }
 
-group = "ru.pixnews.anvil.codegen.test"
 version = anvilCodegenVersions.getSubmoduleVersionProvider(
     propertiesFileKey = "anvil_codegen_test_generator_version",
     envVariableName = "ANVIL_CODEGEN_TEST_GENERATOR_VERSION",

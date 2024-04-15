@@ -23,7 +23,13 @@ listOf(
     "test",
     "viewmodel",
     "workmanager",
-).forEach {
-    include("$it:generator")
-    include("$it:inject")
+).forEach { subproject ->
+    "$subproject-generator".let {
+        include(it)
+        project(":$it").projectDir = file("$subproject/generator")
+    }
+    "$subproject-inject".let {
+        include(it)
+        project(":$it").projectDir = file("$subproject/inject")
+    }
 }
