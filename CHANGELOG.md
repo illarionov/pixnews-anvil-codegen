@@ -1,5 +1,13 @@
 # Change Log
 
+## Version 0.4
+
+*2024-04-15*
+
+- Update Anvil to 2.5.0-beta04
+- Update some other dependencies
+- Change maven coordinates
+
 ## Version 0.3
 
 *2024-03-15*
