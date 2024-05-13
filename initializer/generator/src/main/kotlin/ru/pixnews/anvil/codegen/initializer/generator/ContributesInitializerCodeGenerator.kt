@@ -19,7 +19,7 @@ import com.squareup.anvil.compiler.internal.reference.allSuperTypeClassReference
 import com.squareup.anvil.compiler.internal.reference.asClassName
 import com.squareup.anvil.compiler.internal.reference.asTypeName
 import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferences
-import com.squareup.anvil.compiler.internal.reference.generateClassName
+import com.squareup.anvil.compiler.internal.reference.joinSimpleNames
 import com.squareup.anvil.compiler.internal.safePackageString
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
@@ -132,5 +132,5 @@ public class ContributesInitializerCodeGenerator : CodeGenerator {
 
     private fun ClassReference.isInitializer() = getInitializerBoundType() != null
 
-    private fun ClassReference.moduleNameForInitializer(): ClassId = generateClassName(suffix = "_InitializerModule")
+    private fun ClassReference.moduleNameForInitializer(): ClassId = joinSimpleNames(suffix = "_InitializerModule")
 }
