@@ -15,7 +15,7 @@ import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.asClassName
 import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferences
-import com.squareup.anvil.compiler.internal.reference.generateClassName
+import com.squareup.anvil.compiler.internal.reference.joinSimpleNames
 import com.squareup.anvil.compiler.internal.safePackageString
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.FileSpec
@@ -62,7 +62,7 @@ public class ContributesExperimentCodeGenerator : CodeGenerator {
         annotatedClasses: Collection<ClassReference.Psi>,
         codeGenDir: File,
     ): GeneratedFileWithSources {
-        val moduleClassId = annotatedClasses.first().generateClassName(suffix = "_Experiments_Module")
+        val moduleClassId = annotatedClasses.first().joinSimpleNames(suffix = "_Experiments_Module")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
         val moduleClassName = moduleClassId.relativeClassName.asString()
 

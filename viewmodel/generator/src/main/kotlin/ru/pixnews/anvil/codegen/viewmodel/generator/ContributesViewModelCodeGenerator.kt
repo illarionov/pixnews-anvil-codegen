@@ -16,7 +16,7 @@ import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.MemberFunctionReference
 import com.squareup.anvil.compiler.internal.reference.asClassName
 import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferences
-import com.squareup.anvil.compiler.internal.reference.generateClassName
+import com.squareup.anvil.compiler.internal.reference.joinSimpleNames
 import com.squareup.anvil.compiler.internal.safePackageString
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
@@ -56,7 +56,7 @@ public class ContributesViewModelCodeGenerator : CodeGenerator {
     ): GeneratedFileWithSources {
         annotatedClass.checkClassExtendsType(VIEW_MODEL_FQ_NAME)
 
-        val moduleClassId = annotatedClass.generateClassName(suffix = "_FactoryModule")
+        val moduleClassId = annotatedClass.joinSimpleNames(suffix = "_FactoryModule")
         val generatedPackage = moduleClassId.packageFqName.safePackageString()
         val moduleClassName = moduleClassId.relativeClassName.asString()
 

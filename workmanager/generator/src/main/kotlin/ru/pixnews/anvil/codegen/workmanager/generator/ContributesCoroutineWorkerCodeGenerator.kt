@@ -15,7 +15,7 @@ import com.squareup.anvil.compiler.internal.buildFile
 import com.squareup.anvil.compiler.internal.reference.ClassReference
 import com.squareup.anvil.compiler.internal.reference.asClassName
 import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferences
-import com.squareup.anvil.compiler.internal.reference.generateClassName
+import com.squareup.anvil.compiler.internal.reference.joinSimpleNames
 import com.squareup.anvil.compiler.internal.safePackageString
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
@@ -57,7 +57,7 @@ public class ContributesCoroutineWorkerCodeGenerator : CodeGenerator {
         annotatedClass.checkClassExtendsType(COROUTINE_WORKER_FQ_NAME)
 
         val workerClassName = annotatedClass.asClassName()
-        val factoryClassId = annotatedClass.generateClassName(suffix = "_AssistedFactory")
+        val factoryClassId = annotatedClass.joinSimpleNames(suffix = "_AssistedFactory")
         val generatedPackage = factoryClassId.packageFqName.safePackageString()
         val factoryClassName = factoryClassId.relativeClassName.asString()
 
