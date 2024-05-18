@@ -52,6 +52,7 @@
             <trusting group="androidx.annotation"/>
             <trusting group="androidx.collection"/>
             <trusting group="androidx.compose.runtime"/>
+            <trusting group="androidx.compose.ui"/>
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.work"/>
@@ -63,8 +64,10 @@
          <trusted-key id="A5BD02B93E7A40482EB1D66A5F69AD087600B22C" group="org.ow2.asm"/>
          <trusted-key id="A5F483CD733A4EBAEA378B2AE88979FB9B30ACF2">
             <trusting group="androidx.activity"/>
+            <trusting group="androidx.annotation"/>
             <trusting group="androidx.core"/>
             <trusting group="androidx.fragment"/>
+            <trusting group="androidx.lifecycle"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
          </trusted-key>
          <trusted-key id="ADBC987D1A7B91DB6B0AAA81995EFBF4A3D20BEB" group="com.pinterest.ktlint"/>
