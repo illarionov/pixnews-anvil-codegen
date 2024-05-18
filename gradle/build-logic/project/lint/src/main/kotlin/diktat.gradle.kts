@@ -4,8 +4,7 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
 
-import ru.pixnews.anvil.codegen.buildlogic.project.lint.configRootDir
-import ru.pixnews.anvil.codegen.buildlogic.project.lint.excludeNonLintedDirectories
+package ru.pixnews.anvil.codegen.buildlogic.project.lint
 
 /*
  * Convention plugin that configures Diktat

@@ -8,7 +8,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "ru.pixnews.anvil.codegen.build-logic.project.lint"
+group = "ru.pixnews.anvil.codegen.buildlogic.project.lint"
 
 dependencies {
     implementation(libs.detekt.plugin)

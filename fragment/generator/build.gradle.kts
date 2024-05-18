@@ -5,7 +5,7 @@
  */
 
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.project.generator")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.generator")
 }
 
 group = "ru.pixnews.anvil.codegen"

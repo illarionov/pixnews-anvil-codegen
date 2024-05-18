@@ -10,12 +10,12 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlinx.binary.compatibility.validator) apply false
-    id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library") apply false
-    id("ru.pixnews.anvil.codegen.build-logic.project.publish") apply false
-    id("ru.pixnews.anvil.codegen.build-logic.project.test") apply false
-    id("ru.pixnews.anvil.codegen.build-logic.project.lint.detekt")
-    id("ru.pixnews.anvil.codegen.build-logic.project.lint.diktat")
-    id("ru.pixnews.anvil.codegen.build-logic.project.lint.spotless")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.kotlin.library") apply false
+    id("ru.pixnews.anvil.codegen.buildlogic.project.publish") apply false
+    id("ru.pixnews.anvil.codegen.buildlogic.project.test") apply false
+    id("ru.pixnews.anvil.codegen.buildlogic.project.lint.detekt")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.lint.diktat")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.lint.spotless")
 }
 
 tasks.register("styleCheck") {

@@ -8,7 +8,7 @@ pluginManagement {
 }
 
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.settings.root")
+    id("ru.pixnews.anvil.codegen.buildlogic.settings.root")
 }
 
 rootProject.name = "pixnews-anvil-codegen"

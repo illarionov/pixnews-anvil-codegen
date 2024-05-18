@@ -5,8 +5,8 @@
  */
 
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.project.generator")
-    id("ru.pixnews.anvil.codegen.build-logic.project.publish")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.generator")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.publish")
 }
 
 version = anvilCodegenVersions.getSubmoduleVersionProvider(
