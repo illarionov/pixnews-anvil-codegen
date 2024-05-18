@@ -1,13 +1,15 @@
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinJvm
-import ru.pixnews.anvil.codegen.buildlogic.project.publish.createAnvilCodegenVersionsExtension
-
 /*
  * Copyright (c) 2024, the anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
+
+package ru.pixnews.anvil.codegen.buildlogic.project
+
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
+import ru.pixnews.anvil.codegen.buildlogic.project.publish.createAnvilCodegenVersionsExtension
 
 /*
  * Convention plugin with publishing defaults

@@ -8,7 +8,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "ru.pixnews.anvil.codegen.build-logic.project"
+group = "ru.pixnews.anvil.codegen.buildlogic.project"
 
 dependencies {
     implementation(libs.agp.plugin.api)

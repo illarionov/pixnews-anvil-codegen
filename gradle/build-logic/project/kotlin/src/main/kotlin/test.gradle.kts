@@ -6,6 +6,8 @@
 
 @file:Suppress("UnstableApiUsage")
 
+package ru.pixnews.anvil.codegen.buildlogic.project
+
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 /*

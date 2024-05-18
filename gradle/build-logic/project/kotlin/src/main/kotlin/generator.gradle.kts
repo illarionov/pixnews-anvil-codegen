@@ -4,16 +4,18 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
  */
 
+package ru.pixnews.anvil.codegen.buildlogic.project
+
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 
 /**
  * Convention plugin for use in kotlin generator modules
  */
 plugins {
-    id("ru.pixnews.anvil.codegen.build-logic.project.auto.service")
-    id("ru.pixnews.anvil.codegen.build-logic.project.binary.compatibility.validator")
-    id("ru.pixnews.anvil.codegen.build-logic.project.kotlin.library")
-    id("ru.pixnews.anvil.codegen.build-logic.project.test")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.auto.service")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.binary.compatibility.validator")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.kotlin.library")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.test")
 }
 
 kotlin {
