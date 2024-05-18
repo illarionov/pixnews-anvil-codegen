@@ -51,7 +51,7 @@ naming:
   NoNameShadowing:
     active: false
   InvalidPackageDeclaration:
-    active: true
+    active: false
     rootPackage: "ru.pixnews.anvil.codegen"
     requireRootInDeclaration: false
   TopLevelPropertyNaming:
