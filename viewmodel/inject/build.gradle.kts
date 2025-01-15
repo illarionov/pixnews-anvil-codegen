@@ -8,6 +8,7 @@ plugins {
     id("ru.pixnews.anvil.codegen.buildlogic.project.android.library")
     id("ru.pixnews.anvil.codegen.buildlogic.project.binary.compatibility.validator")
     id("ru.pixnews.anvil.codegen.buildlogic.project.publish")
+    alias(libs.plugins.compose.compiler)
 }
 
 version = anvilCodegenVersions.getSubmoduleVersionProvider(
@@ -19,9 +20,6 @@ android {
     namespace = "ru.pixnews.anvil.codegen.viewmodel"
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 }
 

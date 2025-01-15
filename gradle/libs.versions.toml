@@ -1,29 +1,28 @@
 [versions]
 androidMinSdk = "21"
-androidCompileSdk = "34"
+androidCompileSdk = "35"
 
-kotlin = "1.9.24"
+kotlin = "2.0.10"
 
-agp = "8.2.2"
-androidx-activity = "1.9.0"
-androidx-annotation = "1.8.0"
-androidx-fragment = "1.7.1"
-androidx-lifecycle = "2.8.0"
-androidx-workmanager = "2.9.0"
-anvil = "2.5.0-beta09"
+agp = "8.7.3"
+androidx-activity = "1.10.0"
+androidx-annotation = "1.9.1"
+androidx-fragment = "1.8.5"
+androidx-lifecycle = "2.8.7"
+androidx-workmanager = "2.10.0"
+anvil = "2.5.0"
 auto-service = "1.1.1"
 assertk = "0.28.1"
-compose = "1.6.7"
-composeCompiler = "1.5.14"
-detekt = "1.23.6"
+compose = "1.7.6"
+detekt = "1.23.7"
 dagger = "2.51.1"
 diktat = "2.0.0"
 gradle-maven-publish-plugin = "0.30.0"
-junit5 = "5.10.3"
+junit5 = "5.11.4"
 kotlin-compile-testing-fork = "0.7.0"
-kotlinpoet = "1.18.1"
-kotlinx-binary-compatibility-validator = "0.16.3"
-spotless = "6.25.0"
+kotlinpoet = "2.0.0"
+kotlinx-binary-compatibility-validator = "0.17.0"
+spotless = "7.0.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
@@ -64,7 +63,9 @@ gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-pl
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 gradle-maven-publish-plugin-base = { id = "com.vanniktech.maven.publish.base", version.ref = "gradle-maven-publish-plugin" }
 kotlinx-binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-binary-compatibility-validator" }
