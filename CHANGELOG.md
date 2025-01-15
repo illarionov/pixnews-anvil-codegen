@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6] — 2025-01-16
+
+### Changed
+
+- Update Anvil to 2.5.0
+- Update some other dependencies
+
+
 ## [0.5] — 2024-05-13
 
 ### Changed
