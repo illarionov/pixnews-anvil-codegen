@@ -39,7 +39,10 @@
          <trusted-key id="694621A7227D8D5289699830ABE9F3126BB741C1" group="^com[.]google($|([.].*))" regex="true"/>
          <trusted-key id="696B6199A2A9D8C29CE78CC0D041CAD2E452550F" group="com.google.protobuf"/>
          <trusted-key id="6F538074CCEBF35F28AF9B066A0975F8B1127B83" group="org.jetbrains.kotlin"/>
-         <trusted-key id="719F7C29985A8E95F58F47194D8159D6A1159B69" group="dev.zacsweers.kctfork"/>
+         <trusted-key id="719F7C29985A8E95F58F47194D8159D6A1159B69">
+            <trusting group="dev.zacsweers.anvil"/>
+            <trusting group="dev.zacsweers.kctfork"/>
+         </trusted-key>
          <trusted-key id="7B121B76A7ED6CE6E60AD51784E913A8E3A748C0" group="org.bouncycastle"/>
          <trusted-key id="7B72C18D9C362314BF8E981B0CAEBC0883C5BB65" group="com.vanniktech"/>
          <trusted-key id="7B79ADD11F8A779FE90FD3D0893A028475557671">
@@ -367,6 +370,11 @@
             <pgp value="6DD3B8C64EF75253BEB2C53AD908A43FB7EC07AC"/>
          </artifact>
       </component>
+      <component group="jakarta.inject" name="jakarta.inject-api" version="2.0.1">
+         <artifact name="jakarta.inject-api-2.0.1.jar">
+            <pgp value="4021EEEAFF5DE8404DCD0A270AA3E5C3D232E79B"/>
+         </artifact>
+      </component>
       <component group="jakarta.xml.bind" name="jakarta.xml.bind-api" version="2.3.2">
          <artifact name="jakarta.xml.bind-api-2.3.2.jar">
             <pgp value="FC411CD3CB7DCB0ABC9801058118B3BCDB1A5000"/>
@@ -390,6 +398,11 @@
       <component group="junit" name="junit" version="4.13.2">
          <artifact name="junit-4.13.2.jar">
             <pgp value="FF6E2C001948C5F2F38B0CC385911F425EC61B51"/>
+         </artifact>
+      </component>
+      <component group="me.tatarka.inject" name="kotlin-inject-runtime" version="0.7.2">
+         <artifact name="kotlin-inject-runtime-metadata-0.7.2.jar">
+            <pgp value="5C7049766CD484084E8CB4F1E0AB71F134BCD878"/>
          </artifact>
       </component>
       <component group="net.ltgt.gradle.incap" name="incap" version="0.2">
@@ -534,6 +547,11 @@
       </component>
       <component group="org.jspecify" name="jspecify" version="0.3.0">
          <artifact name="jspecify-0.3.0.jar">
+            <pgp value="41CD49B4EF5876F9E9F691DABAC30622339994C4"/>
+         </artifact>
+      </component>
+      <component group="org.jspecify" name="jspecify" version="1.0.0">
+         <artifact name="jspecify-1.0.0.jar">
             <pgp value="41CD49B4EF5876F9E9F691DABAC30622339994C4"/>
          </artifact>
       </component>

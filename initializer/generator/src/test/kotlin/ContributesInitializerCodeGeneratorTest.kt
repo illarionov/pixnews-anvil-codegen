@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-package ru.pixnews.anvil.codegen.initializer.generator
+package ru.pixnews.anvil.ksp.codegen.initializer.generator
 
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEqualTo
 import com.squareup.anvil.annotations.ContributesTo
+import com.squareup.anvil.compiler.internal.testing.ComponentProcessingMode.KSP
 import com.squareup.anvil.compiler.internal.testing.compileAnvil
 import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
@@ -24,8 +26,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.testutils.haveAnnotation
-import ru.pixnews.anvil.codegen.testutils.loadClass
+import ru.pixnews.anvil.ksp.codegen.testutils.haveAnnotation
+import ru.pixnews.anvil.ksp.codegen.testutils.loadClass
 import javax.inject.Provider
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -37,14 +39,14 @@ class ContributesInitializerCodeGeneratorTest {
         public fun interface AsyncInitializer { public fun init() }
     """.trimIndent()
     private val initializersInjectCode = """
-        package ru.pixnews.anvil.codegen.initializer.inject
+        package ru.pixnews.anvil.ksp.codegen.initializer.inject
         import kotlin.reflect.KClass
         public annotation class ContributesInitializer(
             val replaces: Array<KClass<*>> = [],
         )
     """.trimIndent()
     private val appInitializersScope = """
-        package ru.pixnews.anvil.codegen.initializer.inject
+        package ru.pixnews.anvil.ksp.codegen.initializer.inject
         public abstract class AppInitializersScope private constructor()
     """.trimIndent()
     private val loggerStubCode = """
@@ -66,7 +68,7 @@ class ContributesInitializerCodeGeneratorTest {
         import co.touchlab.kermit.Logger
         import com.google.firebase.FirebaseApp
         import ru.pixnews.foundation.initializers.AsyncInitializer
-        import ru.pixnews.anvil.codegen.initializer.inject.ContributesInitializer
+        import ru.pixnews.anvil.ksp.codegen.initializer.inject.ContributesInitializer
         import javax.inject.Provider
 
         @ContributesInitializer
@@ -83,7 +85,7 @@ class ContributesInitializerCodeGeneratorTest {
         import co.touchlab.kermit.Logger
         import com.google.firebase.FirebaseApp
         import ru.pixnews.foundation.initializers.AsyncInitializer
-        import ru.pixnews.anvil.codegen.initializer.inject.ContributesInitializer
+        import ru.pixnews.anvil.ksp.codegen.initializer.inject.ContributesInitializer
         import ru.pixnews.initializers.FirebaseInitializer
         import javax.inject.Provider
 
@@ -105,19 +107,18 @@ class ContributesInitializerCodeGeneratorTest {
         @BeforeAll
         fun setup() {
             compilationResult = compileAnvil(
-                initializersInjectCode,
-                appInitializersScope,
-                firebaseStubCode,
-                initializerInterfacesCode,
-                javaxInjectProviderCode,
-                loggerStubCode,
-                firebaseInitializerCode,
+                componentProcessingMode = KSP,
+                sources = arrayOf(
+                    initializersInjectCode,
+                    appInitializersScope,
+                    firebaseStubCode,
+                    initializerInterfacesCode,
+                    javaxInjectProviderCode,
+                    loggerStubCode,
+                    firebaseInitializerCode,
+                ),
+                expectExitCode = OK,
             )
-        }
-
-        @Test
-        fun `Dagger module should be generated`() {
-            assertThat(compilationResult.exitCode).isEqualTo(OK)
         }
 
         @Test
@@ -169,14 +170,18 @@ class ContributesInitializerCodeGeneratorTest {
         @BeforeAll
         fun setup() {
             compilationResult = compileAnvil(
-                initializersInjectCode,
-                appInitializersScope,
-                firebaseStubCode,
-                initializerInterfacesCode,
-                javaxInjectProviderCode,
-                loggerStubCode,
-                firebaseInitializerCode,
-                testFirebaseInitializerCode,
+                componentProcessingMode = KSP,
+                sources = arrayOf(
+                    initializersInjectCode,
+                    appInitializersScope,
+                    firebaseStubCode,
+                    initializerInterfacesCode,
+                    javaxInjectProviderCode,
+                    loggerStubCode,
+                    firebaseInitializerCode,
+                    testFirebaseInitializerCode,
+                ),
+                expectExitCode = OK,
             )
         }
 

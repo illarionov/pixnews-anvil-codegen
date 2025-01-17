@@ -1,26 +1,26 @@
-public abstract interface annotation class ru/pixnews/anvil/codegen/viewmodel/inject/ContributesViewModel : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/ContributesViewModel : java/lang/annotation/Annotation {
 }
 
-public abstract class ru/pixnews/anvil/codegen/viewmodel/inject/ViewModelScope {
+public abstract class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/ViewModelScope {
 	public static final field $stable I
 }
 
-public final class ru/pixnews/anvil/codegen/viewmodel/inject/util/ComposeViewModelExtKt {
+public final class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/util/ComposeViewModelExtKt {
 	public static final fun injectedViewModel (Ljava/lang/Class;Landroidx/lifecycle/ViewModelStoreOwner;Ljava/lang/String;Landroidx/lifecycle/viewmodel/CreationExtras;Landroidx/compose/runtime/Composer;II)Landroidx/lifecycle/ViewModel;
 }
 
-public final class ru/pixnews/anvil/codegen/viewmodel/inject/util/RootViewModelFactoryHolder {
+public final class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/util/RootViewModelFactoryHolder {
 	public static final field $stable I
-	public static final field INSTANCE Lru/pixnews/anvil/codegen/viewmodel/inject/util/RootViewModelFactoryHolder;
+	public static final field INSTANCE Lru/pixnews/anvil/ksp/codegen/viewmodel/inject/util/RootViewModelFactoryHolder;
 	public final fun getFactory ()Landroidx/lifecycle/ViewModelProvider$Factory;
 	public final fun initRootFactory (Landroidx/lifecycle/ViewModelProvider$Factory;)V
 }
 
-public abstract interface class ru/pixnews/anvil/codegen/viewmodel/inject/wiring/ViewModelFactory {
+public abstract interface class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/wiring/ViewModelFactory {
 	public abstract fun create (Landroidx/lifecycle/viewmodel/CreationExtras;)Landroidx/lifecycle/ViewModel;
 }
 
-public abstract interface annotation class ru/pixnews/anvil/codegen/viewmodel/inject/wiring/ViewModelMapKey : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/viewmodel/inject/wiring/ViewModelMapKey : java/lang/annotation/Annotation {
 	public abstract fun viewModelClass ()Ljava/lang/Class;
 }
 

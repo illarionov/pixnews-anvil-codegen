@@ -1,16 +1,16 @@
-public abstract interface annotation class ru/pixnews/anvil/codegen/test/inject/ContributesTest : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/test/inject/ContributesTest : java/lang/annotation/Annotation {
 }
 
-public final class ru/pixnews/anvil/codegen/test/inject/wiring/DefaultInstrumentedTestInjector : ru/pixnews/anvil/codegen/test/inject/wiring/InstrumentedTestInjector {
+public final class ru/pixnews/anvil/ksp/codegen/test/inject/wiring/DefaultInstrumentedTestInjector : ru/pixnews/anvil/ksp/codegen/test/inject/wiring/InstrumentedTestInjector {
 	public fun <init> (Ljava/util/Map;)V
 	public fun inject (Ljava/lang/Object;)V
 }
 
-public abstract interface class ru/pixnews/anvil/codegen/test/inject/wiring/InstrumentedTestInjector {
+public abstract interface class ru/pixnews/anvil/ksp/codegen/test/inject/wiring/InstrumentedTestInjector {
 	public abstract fun inject (Ljava/lang/Object;)V
 }
 
-public final class ru/pixnews/anvil/codegen/test/inject/wiring/SingleInstrumentedTestInjector {
+public final class ru/pixnews/anvil/ksp/codegen/test/inject/wiring/SingleInstrumentedTestInjector {
 	public fun <init> (Ldagger/MembersInjector;)V
 	public final fun injectMembers (Ljava/lang/Object;)V
 }

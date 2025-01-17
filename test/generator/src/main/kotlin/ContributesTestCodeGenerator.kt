@@ -1,80 +1,105 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-package ru.pixnews.anvil.codegen.test.generator
+package ru.pixnews.anvil.ksp.codegen.test.generator
 
 import com.google.auto.service.AutoService
+import com.google.devtools.ksp.processing.CodeGenerator
+import com.google.devtools.ksp.processing.Resolver
+import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.anvil.compiler.api.AnvilContext
-import com.squareup.anvil.compiler.api.CodeGenerator
-import com.squareup.anvil.compiler.api.GeneratedFileWithSources
-import com.squareup.anvil.compiler.api.createGeneratedFile
-import com.squareup.anvil.compiler.internal.buildFile
-import com.squareup.anvil.compiler.internal.reference.ClassReference
-import com.squareup.anvil.compiler.internal.reference.asClassName
-import com.squareup.anvil.compiler.internal.reference.classAndInnerClassReferences
-import com.squareup.anvil.compiler.internal.reference.joinSimpleNames
-import com.squareup.anvil.compiler.internal.safePackageString
+import com.squareup.anvil.compiler.api.AnvilKspExtension
+import com.squareup.anvil.compiler.internal.joinSimpleNames
 import com.squareup.kotlinpoet.AnnotationSpec
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeSpec
-import org.jetbrains.kotlin.descriptors.ModuleDescriptor
-import org.jetbrains.kotlin.psi.KtFile
-import ru.pixnews.anvil.codegen.common.classname.AnvilClassName
-import ru.pixnews.anvil.codegen.common.classname.DaggerClassName
-import ru.pixnews.anvil.codegen.common.util.contributesToAnnotation
-import java.io.File
+import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.writeTo
+import ru.pixnews.anvil.ksp.codegen.common.classname.AnvilClassName
+import ru.pixnews.anvil.ksp.codegen.common.classname.DaggerClassName
+import ru.pixnews.anvil.ksp.codegen.common.util.contributesToAnnotation
+import ru.pixnews.anvil.ksp.codegen.common.util.readClassNameOrDefault
 
-@AutoService(CodeGenerator::class)
-public class ContributesTestCodeGenerator : CodeGenerator {
-    override fun isApplicable(context: AnvilContext): Boolean = true
+internal const val APP_SCOPE_KSP_KEY = "ru.pixnews.anvil.ksp.base.AppScope"
+internal const val CONTRIBUTES_TEST_ANNOTATION_KSP_KEY = "ru.pixnews.anvil.ksp.test.ContributesTest"
+internal const val INSTRUMENTED_TEST_INJECTOR_KSP_KEY = "ru.pixnews.anvil.ksp.test.SingleInstrumentedTestInjector"
 
-    override fun generateCode(
-        codeGenDir: File,
-        module: ModuleDescriptor,
-        projectFiles: Collection<KtFile>,
-    ): Collection<GeneratedFileWithSources> {
-        return projectFiles
-            .classAndInnerClassReferences(module)
-            .filter { it.isAnnotatedWith(PixnewsTestClassName.contributesTestFqName) }
-            .map { generateTestModule(it, codeGenDir) }
-            .toList()
-    }
-
-    private fun generateTestModule(
-        annotatedClass: ClassReference,
-        codeGenDir: File,
-    ): GeneratedFileWithSources {
-        val moduleClassId = annotatedClass.joinSimpleNames(suffix = "_TestModule")
-        val generatedPackage = moduleClassId.packageFqName.safePackageString()
-        val moduleClassName = moduleClassId.relativeClassName.asString()
-
-        val moduleSpecBuilder = TypeSpec.objectBuilder(moduleClassName)
-            .addAnnotation(DaggerClassName.module)
-            .addAnnotation(contributesToAnnotation(PixnewsTestClassName.appScope))
-            .addFunction(generateProvideMethod(annotatedClass))
-
-        val content = FileSpec.buildFile(generatedPackage, moduleClassName) {
-            addType(moduleSpecBuilder.build())
-        }
-        return createGeneratedFile(
-            codeGenDir = codeGenDir,
-            packageName = generatedPackage,
-            fileName = moduleClassName,
-            content = content,
-            sourceFile = annotatedClass.containingFileAsJavaFile,
+@AutoService(AnvilKspExtension.Provider::class)
+public class ContributesActivityAnvilKspExtensionProvider : AnvilKspExtension.Provider {
+    override fun create(environment: SymbolProcessorEnvironment): AnvilKspExtension {
+        val appScopeAnnotation = environment.readClassNameOrDefault(
+            APP_SCOPE_KSP_KEY,
+            ClassName("ru.pixnews.foundation.di.base.scopes", "AppScope"),
+        )
+        val contributesTestAnnotation = environment.readClassNameOrDefault(
+            CONTRIBUTES_TEST_ANNOTATION_KSP_KEY,
+            ClassName("ru.pixnews.anvil.ksp.codegen.test.inject", "ContributesTest"),
+        )
+        val instrumentedTestInjectorClass = environment.readClassNameOrDefault(
+            INSTRUMENTED_TEST_INJECTOR_KSP_KEY,
+            ClassName("ru.pixnews.anvil.ksp.codegen.test.inject.wiring", "SingleInstrumentedTestInjector"),
+        )
+        return ContributesActivityKspExtension(
+            environment,
+            appScopeAnnotation,
+            contributesTestAnnotation,
+            instrumentedTestInjectorClass,
         )
     }
 
+    override fun isApplicable(context: AnvilContext): Boolean = true
+}
+
+private class ContributesActivityKspExtension(
+    environment: SymbolProcessorEnvironment,
+    private val appScopeAnnotation: ClassName,
+    private val contributesTestAnnotation: ClassName,
+    private val instrumentedTestInjectorClass: ClassName,
+) : AnvilKspExtension {
+    private val codeGenerator: CodeGenerator = environment.codeGenerator
+    override val supportedAnnotationTypes = setOf(contributesTestAnnotation.canonicalName)
+
+    override fun process(resolver: Resolver): List<KSAnnotated> {
+        resolver.getSymbolsWithAnnotation(contributesTestAnnotation.canonicalName)
+            .filterIsInstance<KSClassDeclaration>()
+            .distinctBy { it.qualifiedName?.asString() }
+            .map { classDeclaration: KSClassDeclaration ->
+                classDeclaration.containingFile!! to generateTestModule(classDeclaration.toClassName())
+            }
+            .forEach { (originatingKSFile, spec) ->
+                spec.writeTo(
+                    codeGenerator,
+                    aggregating = false,
+                    originatingKSFiles = listOf(originatingKSFile),
+                )
+            }
+        return emptyList()
+    }
+
+    private fun generateTestModule(
+        annotatedClass: ClassName,
+    ): FileSpec {
+        val moduleClass = annotatedClass.joinSimpleNames(suffix = "_TestModule")
+        val moduleSpecBuilder = TypeSpec.objectBuilder(moduleClass)
+            .addAnnotation(DaggerClassName.module)
+            .addAnnotation(contributesToAnnotation(appScopeAnnotation))
+            .addFunction(generateProvideMethod(annotatedClass))
+        return FileSpec.builder(moduleClass).addType(moduleSpecBuilder.build()).build()
+    }
+
     private fun generateProvideMethod(
-        annotatedClass: ClassReference,
+        testClass: ClassName,
     ): FunSpec {
-        val testClass = annotatedClass.asClassName()
-        return FunSpec.builder("provide${annotatedClass.shortName}Injector")
+        return FunSpec.builder("provide${testClass.simpleName}Injector")
             .addAnnotation(DaggerClassName.provides)
             .addAnnotation(DaggerClassName.intoMap)
             .addAnnotation(
@@ -86,12 +111,12 @@ public class ContributesTestCodeGenerator : CodeGenerator {
             .addAnnotation(
                 AnnotationSpec
                     .builder(AnvilClassName.singleIn)
-                    .addMember("%T::class", PixnewsTestClassName.appScope)
+                    .addMember("%T::class", appScopeAnnotation)
                     .build(),
             )
             .addParameter("injector", DaggerClassName.membersInjector.parameterizedBy(testClass))
-            .returns(PixnewsTestClassName.singleInstrumentedTestInjector)
-            .addStatement("return %T(injector)", PixnewsTestClassName.singleInstrumentedTestInjector)
+            .returns(instrumentedTestInjectorClass)
+            .addStatement("return %T(injector)", instrumentedTestInjectorClass)
             .build()
     }
 }

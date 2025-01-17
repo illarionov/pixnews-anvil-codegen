@@ -1,14 +1,14 @@
-public abstract interface annotation class ru/pixnews/anvil/codegen/experiment/inject/ContributesExperiment : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/experiment/inject/ContributesExperiment : java/lang/annotation/Annotation {
 }
 
-public abstract interface annotation class ru/pixnews/anvil/codegen/experiment/inject/ContributesExperimentVariantSerializer : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/experiment/inject/ContributesExperimentVariantSerializer : java/lang/annotation/Annotation {
 	public abstract fun experimentKey ()Ljava/lang/String;
 }
 
-public abstract class ru/pixnews/anvil/codegen/experiment/inject/ExperimentScope {
+public abstract class ru/pixnews/anvil/ksp/codegen/experiment/inject/ExperimentScope {
 }
 
-public abstract interface annotation class ru/pixnews/anvil/codegen/experiment/inject/wiring/ExperimentVariantMapKey : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/experiment/inject/wiring/ExperimentVariantMapKey : java/lang/annotation/Annotation {
 	public abstract fun key ()Ljava/lang/String;
 }
 

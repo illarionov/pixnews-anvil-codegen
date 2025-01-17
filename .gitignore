@@ -37,3 +37,4 @@ lint/outputs/
 lint/tmp/
 
 .android/
+.kotlin/

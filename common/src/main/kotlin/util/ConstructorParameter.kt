@@ -1,15 +1,16 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-package ru.pixnews.anvil.codegen.common.util
+package ru.pixnews.anvil.ksp.codegen.common.util
 
-import com.squareup.anvil.compiler.internal.reference.ClassReference
-import com.squareup.anvil.compiler.internal.reference.ParameterReference
+import com.google.devtools.ksp.symbol.KSValueParameter
 import com.squareup.kotlinpoet.TypeName
-import ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi
+import com.squareup.kotlinpoet.ksp.toTypeName
+import ru.pixnews.anvil.ksp.codegen.common.InternalPixnewsAnvilCodegenApi
 
 @InternalPixnewsAnvilCodegenApi
 public class ConstructorParameter(
@@ -18,8 +19,9 @@ public class ConstructorParameter(
 )
 
 @InternalPixnewsAnvilCodegenApi
-public fun List<ParameterReference>.parseConstructorParameters(
-    implementingClass: ClassReference,
-): List<ConstructorParameter> = this.map {
-    ConstructorParameter(it.name, it.resolveTypeName(implementingClass))
+public fun List<KSValueParameter>.parseConstructorParameters(): List<ConstructorParameter> = this.map {
+    ConstructorParameter(
+        it.name?.asString() ?: error("Parameter without name"),
+        it.type.resolve().toTypeName(),
+    )
 }
