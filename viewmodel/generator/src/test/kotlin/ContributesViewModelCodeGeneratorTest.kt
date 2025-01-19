@@ -60,8 +60,8 @@ class ContributesViewModelCodeGeneratorTest {
 
         val contributesViewModelStub = """
             package ${contributesViewModelAnnotation.packageName}
-            public annotation class ${contributesViewModelAnnotation.simpleName}
-            public abstract class ${viewModelScopeAnnotation.simpleName} private constructor()
+            annotation class ${contributesViewModelAnnotation.simpleName}
+            abstract class ${viewModelScopeAnnotation.simpleName} private constructor()
         """.trimIndent()
         val baseDiViewModelStubs = """
             package ${viewModelMapKeyAnnotation.packageName}
@@ -71,10 +71,10 @@ class ContributesViewModelCodeGeneratorTest {
             import dagger.MapKey
             import kotlin.reflect.KClass
 
-            @MapKey public annotation class ${viewModelMapKeyAnnotation.simpleName}(val viewModelClass: KClass<out ViewModel>)
+            @MapKey annotation class ${viewModelMapKeyAnnotation.simpleName}(val viewModelClass: KClass<out ViewModel>)
 
-            public fun interface ${viewModelFactoryAnnotation.simpleName} {
-                public fun create(creationExtras: CreationExtras): ViewModel
+            fun interface ${viewModelFactoryAnnotation.simpleName} {
+                fun create(creationExtras: CreationExtras): ViewModel
             }
         """.trimIndent()
 

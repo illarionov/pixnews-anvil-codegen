@@ -49,17 +49,17 @@ class ContributesActivityCodeGeneratorTest {
             import dagger.MapKey
             import kotlin.reflect.KClass
 
-            @MapKey public annotation class ${activityMapKeyAnnotation.simpleName}(val activityClass: KClass<out Activity>)
+            @MapKey annotation class ${activityMapKeyAnnotation.simpleName}(val activityClass: KClass<out Activity>)
         """.trimIndent()
 
         val activityScopeAnnotationStub = """
             package ${activityScope.packageName}
-            public abstract class ${activityScope.simpleName} private constructor()
+            abstract class ${activityScope.simpleName} private constructor()
         """.trimIndent()
 
         val contributeActivityAnnotationStub = """
             package ${contributesActivityAnnotation.packageName}
-            public annotation class ${contributesActivityAnnotation.simpleName}
+            annotation class ${contributesActivityAnnotation.simpleName}
         """.trimIndent()
 
         val androidActivityStub = """

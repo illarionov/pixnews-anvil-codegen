@@ -15,5 +15,5 @@ plugins {
 }
 
 apiValidation {
-    nonPublicMarkers.add("ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi")
+    nonPublicMarkers.add("ru.pixnews.anvil.ksp.codegen.common.InternalPixnewsAnvilCodegenApi")
 }

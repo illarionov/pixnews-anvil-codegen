@@ -56,8 +56,8 @@ Add the required dependencies
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:activity-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:activity-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:activity-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:activity-inject:0.1")
 }
 ```
 
@@ -168,8 +168,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:viewmodel-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:viewmodel-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:viewmodel-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:viewmodel-inject:0.1")
 }
 ```
 
@@ -324,8 +324,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:workmanager-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:workmanager-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:workmanager-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:workmanager-inject:0.1")
 }
 ```
 
@@ -483,8 +483,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:test-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:test-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:test-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:test-inject:0.1")
 }
 ```
 
@@ -592,8 +592,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:experiment-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:experiment-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:experiment-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:experiment-inject:0.1")
 }
 ```
 
@@ -673,8 +673,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:initializer-generator:0.6")
-    api("ru.pixnews.anvil.ksp.codegen:initializer-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:initializer-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:initializer-inject:0.1")
 }
 ```
 

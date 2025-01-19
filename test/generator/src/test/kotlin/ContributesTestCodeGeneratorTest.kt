@@ -58,7 +58,7 @@ class ContributesTestCodeGeneratorTest {
 
         val appScopeStub = """
             package ${appScopeAnnotation.packageName}
-            public abstract class ${appScopeAnnotation.simpleName} private constructor()
+            abstract class ${appScopeAnnotation.simpleName} private constructor()
         """.trimIndent()
 
         val testClass = """

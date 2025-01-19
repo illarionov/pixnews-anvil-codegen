@@ -59,25 +59,25 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
                 appContext: Context,
                 params: WorkerParameters
             ) {
-              public abstract suspend fun doWork(): Result<Unit>
+              abstract suspend fun doWork(): Result<Unit>
             }
         """.trimIndent()
 
         val daggerStubs = """
             package dagger.assisted
-            public annotation class Assisted(val value: String = "")
-            public annotation class AssistedInject
+            annotation class Assisted(val value: String = "")
+            annotation class AssistedInject
         """.trimIndent()
 
         val appContextQualifier = """
             package ${applicationContextAnnotation.packageName}
-            public annotation class ${applicationContextAnnotation.simpleName}
+            annotation class ${applicationContextAnnotation.simpleName}
         """.trimIndent()
 
         val workManagerInjectStubs = """
             package ${contributeCoroutineWorkerAnnotation.packageName}
-            public abstract class ${workManagerScopeClass.simpleName} private constructor()
-            public annotation class ${contributeCoroutineWorkerAnnotation.simpleName}
+            abstract class ${workManagerScopeClass.simpleName} private constructor()
+            annotation class ${contributeCoroutineWorkerAnnotation.simpleName}
         """.trimIndent()
         val workmanagerWiringStubs = """
             package ${coroutineWorkerFactoryClass.packageName}
@@ -87,10 +87,10 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
             import ${applicationContextAnnotation.canonicalName}
             import kotlin.reflect.KClass
 
-            public annotation class ${coroutineWorkerFactoryMapKeyAnnotation.simpleName}(val workerClass: KClass<out CoroutineWorker>)
+            annotation class ${coroutineWorkerFactoryMapKeyAnnotation.simpleName}(val workerClass: KClass<out CoroutineWorker>)
 
-            public interface ${coroutineWorkerFactoryClass.simpleName} {
-                public fun create(
+            interface ${coroutineWorkerFactoryClass.simpleName} {
+                fun create(
                     @${applicationContextAnnotation.simpleName} context: Context,
                     workerParameters: WorkerParameters,
                 ): CoroutineWorker
@@ -110,7 +110,7 @@ class ContributesCoroutineWorkerCodeGeneratorTest {
 
             @Suppress("UNUSED_PARAMETER")
             @${contributeCoroutineWorkerAnnotation.simpleName}
-            public class TestWorker @AssistedInject constructor(
+            class TestWorker @AssistedInject constructor(
                 @Assisted @${applicationContextAnnotation.simpleName} appContext: Context,
                 @Assisted params: WorkerParameters,
             ) : CoroutineWorker(appContext, params) {
