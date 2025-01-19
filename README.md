@@ -770,6 +770,8 @@ object TestStrictModeInitializer_InitializerModule {
 ## Other generator samples
 Some other good reposotories with Anvil generators
 
+* https://github.com/IlyaGulya/anvil-utils
+  Annotation that helps to automatically generate assisted factories
 * https://github.com/deliveryhero/whetstone  
     Whetstone, DI framework for Android that greatly simplifies working with Dagger 2 using Anvil
 * https://github.com/RBusarow/Tangle  
