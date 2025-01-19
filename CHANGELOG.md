@@ -1,5 +1,14 @@
 # Changelog
 
+## KSP [0.1] — 2025-01-16
+
+### Changed
+
+- Switch to Anvil-KSP fork
+- Rewrite generators using KSP
+
+Maven coordinates and package changed to ru.pixnews.anvil.ksp
+
 ## [0.6] — 2025-01-16
 
 ### Changed
