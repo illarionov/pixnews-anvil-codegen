@@ -14,7 +14,7 @@ group = "ru.pixnews.anvil.ksp.codegen"
 version = "0.1-WIP"
 
 android {
-    namespace = "ru.pixnews.anvil.codegen.fragmwnt"
+    namespace = "ru.pixnews.anvil.codegen.fragment"
 }
 
 dependencies {
