@@ -1,14 +1,14 @@
-public abstract interface annotation class ru/pixnews/anvil/codegen/workmanager/inject/ContributesCoroutineWorker : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/workmanager/inject/ContributesCoroutineWorker : java/lang/annotation/Annotation {
 }
 
-public abstract class ru/pixnews/anvil/codegen/workmanager/inject/WorkManagerScope {
+public abstract class ru/pixnews/anvil/ksp/codegen/workmanager/inject/WorkManagerScope {
 }
 
-public abstract interface class ru/pixnews/anvil/codegen/workmanager/inject/wiring/CoroutineWorkerFactory {
+public abstract interface class ru/pixnews/anvil/ksp/codegen/workmanager/inject/wiring/CoroutineWorkerFactory {
 	public abstract fun create (Landroid/content/Context;Landroidx/work/WorkerParameters;)Landroidx/work/CoroutineWorker;
 }
 
-public abstract interface annotation class ru/pixnews/anvil/codegen/workmanager/inject/wiring/CoroutineWorkerMapKey : java/lang/annotation/Annotation {
+public abstract interface annotation class ru/pixnews/anvil/ksp/codegen/workmanager/inject/wiring/CoroutineWorkerMapKey : java/lang/annotation/Annotation {
 	public abstract fun workerClass ()Ljava/lang/Class;
 }
 

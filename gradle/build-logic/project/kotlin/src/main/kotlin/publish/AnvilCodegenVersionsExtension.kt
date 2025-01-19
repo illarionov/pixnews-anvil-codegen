@@ -1,7 +1,8 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package ru.pixnews.anvil.codegen.buildlogic.project.publish
@@ -51,11 +52,11 @@ constructor(
         )
         .orElse(providers.provider { error("File ${propertiesFile.get()} not found") })
     private val rootVersion: Provider<String> = providers.gradleProperty("version")
-        .orElse(providers.environmentVariable("ANVIL_CODEGEN_VERSION"))
+        .orElse(providers.environmentVariable("ANVIL_KSP_CODEGEN_VERSION"))
         .orElse(
             propertiesProvider.map { props ->
-                props.getProperty("anvil_codegen_version")
-                    ?: error("No `anvil_codegen_version` in ${propertiesFile.get()}")
+                props.getProperty("anvil_ksp_codegen_version")
+                    ?: error("No `anvil_ksp_codegen_version` in ${propertiesFile.get()}")
             },
         )
 

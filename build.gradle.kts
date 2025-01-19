@@ -1,7 +1,8 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 plugins {
@@ -12,7 +13,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.kotlinx.binary.compatibility.validator) apply false
     id("ru.pixnews.anvil.codegen.buildlogic.project.kotlin.library") apply false
-    id("ru.pixnews.anvil.codegen.buildlogic.project.publish") apply false
+    id("ru.pixnews.anvil.codegen.buildlogic.project.publish.ksp") apply false
     id("ru.pixnews.anvil.codegen.buildlogic.project.test") apply false
     id("ru.pixnews.anvil.codegen.buildlogic.project.lint.detekt")
     id("ru.pixnews.anvil.codegen.buildlogic.project.lint.diktat")

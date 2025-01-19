@@ -1,7 +1,8 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package ru.pixnews.anvil.codegen.buildlogic.project
@@ -22,7 +23,7 @@ kotlin {
     compilerOptions {
         optIn.addAll(
             "kotlin.RequiresOptIn",
-            "ru.pixnews.anvil.codegen.common.InternalPixnewsAnvilCodegenApi",
+            "ru.pixnews.anvil.ksp.codegen.common.InternalPixnewsAnvilCodegenApi",
         )
     }
 }
@@ -30,7 +31,7 @@ kotlin {
 dependencies {
     val libs = versionCatalogs.named("libs")
 
-    api(libs.findLibrary("anvil.compiler.api").get())
+    api(libs.findLibrary("anvil.ksp.compiler.api").get())
     addDependencyTo<ModuleDependency>(
         this,
         "implementation",
@@ -38,12 +39,12 @@ dependencies {
     ) {
         exclude(module = "kotlin-reflect")
     }
-    compileOnly(libs.findLibrary("anvil.annotations").get())
+    compileOnly(libs.findLibrary("anvil.ksp.annotations").get())
     implementation(project(":common"))
 
-    testImplementation(libs.findLibrary("anvil.annotations.optional").get())
+    testImplementation(libs.findLibrary("anvil.ksp.annotations.optional").get())
     testImplementation(libs.findLibrary("assertk").get())
     testImplementation(libs.findLibrary("dagger").get())
     testImplementation(project(":test-utils"))
-    testImplementation(testFixtures(libs.findLibrary("anvil.compiler.utils").get()))
+    testImplementation(testFixtures(libs.findLibrary("anvil.ksp.compiler.utils").get()))
 }

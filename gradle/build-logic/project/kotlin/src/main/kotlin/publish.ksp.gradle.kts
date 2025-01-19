@@ -18,7 +18,7 @@ plugins {
     id("com.vanniktech.maven.publish.base")
 }
 
-group = "ru.pixnews.anvil.codegen"
+group = "ru.pixnews.anvil.ksp.codegen"
 
 createAnvilCodegenVersionsExtension()
 
@@ -67,7 +67,7 @@ mavenPublishing {
 
     pom {
         name.set(project.name)
-        description.set("Anvil code generators used in Pixnews project")
+        description.set("Anvil-KSP code generators used in Pixnews project")
         url.set("https://github.com/illarionov/pixnews-anvil-codegen")
 
         licenses {

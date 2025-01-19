@@ -1,11 +1,11 @@
-# Pixnews Anvil codegen
+# Pixnews anvil.ksp.codegen
 
-Some [Anvil] code generators originally used in [Pixnews](https://github.com/illarionov/Pixnews) Android application. Published as examples of possible
+Some [Anvil-ksp] code generators originally used in [Pixnews](https://github.com/illarionov/Pixnews) Android application. Published as examples of possible
 recipes with Anvil generators.
 
 Simplifies the creation of [Dagger] components and modules using the [Anvil] compiler plugin
 
-[Anvil]: https://github.com/square/anvil
+[Anvil-ksp]: https://github.com/square/anvil
 [Dagger]: https://github.com/google/dagger
 
 ## Installation
@@ -21,7 +21,7 @@ pluginManagement {
         maven {
             url = uri("https://maven.pixnews.ru")
             mavenContent {
-                includeGroup("ru.pixnews.anvil.codegen")
+                includeGroup("ru.pixnews.anvil.ksp.codegen")
             }
         }
     }
@@ -56,8 +56,8 @@ Add the required dependencies
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:activity-generator:0.6")
-    api("ru.pixnews.anvil.codegen:activity-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:activity-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:activity-inject:0.1")
 }
 ```
 
@@ -65,8 +65,8 @@ Create a subcomponent with an Activity scope and add it to your application comp
 as shown in the following example:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.activity.inject.ActivityScope
-import ru.pixnews.anvil.codegen.activity.inject.wiring.ActivityInjector
+import ru.pixnews.anvil.ksp.codegen.activity.inject.ActivityScope
+import ru.pixnews.anvil.ksp.codegen.activity.inject.wiring.ActivityInjector
 import <your app scope>.AppScope
 
 @SingleIn(ActivityScope::class)
@@ -91,9 +91,9 @@ Add module for the subcomponent:
 ```kotlin
 import dagger.MembersInjector
 
-import ru.pixnews.anvil.codegen.activity.inject.ActivityScope
-import ru.pixnews.anvil.codegen.activity.inject.wiring.ActivityInjector
-import ru.pixnews.anvil.codegen.activity.inject.wiring.DefaultActivityInjector
+import ru.pixnews.anvil.ksp.codegen.activity.inject.ActivityScope
+import ru.pixnews.anvil.ksp.codegen.activity.inject.wiring.ActivityInjector
+import ru.pixnews.anvil.ksp.codegen.activity.inject.wiring.DefaultActivityInjector
 
 @ContributesTo(ActivityScope::class)
 @Module
@@ -132,7 +132,7 @@ abstract class BaseActivity : FragmentActivity() {
 Now your can annotate any activity with `ContributesActivity` to add this activity to multibinding.
 
 ```kotlin
-import ru.pixnews.anvil.codegen.activity.inject.ContributesActivity
+import ru.pixnews.anvil.ksp.codegen.activity.inject.ContributesActivity
 
 @ContributesActivity
 class MainActivity : BaseActivity() {
@@ -144,8 +144,8 @@ class MainActivity : BaseActivity() {
 The following module will be generated based on this annotation:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.activity.inject.ActivityScope
-import ru.pixnews.anvil.codegen.activity.inject.wiring.ActivityMapKey
+import ru.pixnews.anvil.ksp.codegen.activity.inject.ActivityScope
+import ru.pixnews.anvil.ksp.codegen.activity.inject.wiring.ActivityMapKey
 
 @Module
 @ContributesTo(ActivityScope::class)
@@ -168,8 +168,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:viewmodel-generator:0.6")
-    api("ru.pixnews.anvil.codegen:viewmodel-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:viewmodel-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:viewmodel-inject:0.1")
 }
 ```
 
@@ -177,8 +177,8 @@ Create a subcomponent for ViewModels and add it to your application component,
 as shown in the following example:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.viewmodel.inject.ViewModelScope
-import ru.pixnews.anvil.codegen.viewmodel.inject.wiring.ViewModelFactory
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.ViewModelScope
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.wiring.ViewModelFactory
 import <your app scope>.AppScope
 
 @ContributesSubcomponent(scope = ViewModelScope::class, parentScope = AppScope::class)
@@ -203,7 +203,7 @@ interface ViewModelSubcomponent {
 Declaration of the multibindings in module:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.viewmodel.inject.ViewModelScope
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.ViewModelScope
 
 @Module
 @ContributesTo(ViewModelScope::class)
@@ -289,9 +289,9 @@ class MyViewModel(
 The following binding will be generated based on this annotation:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.viewmodel.inject.ViewModelScope
-import ru.pixnews.anvil.codegen.viewmodel.inject.wiring.ViewModelFactory
-import ru.pixnews.anvil.codegen.viewmodel.inject.wiring.ViewModelMapKey
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.ViewModelScope
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.wiring.ViewModelFactory
+import ru.pixnews.anvil.ksp.codegen.viewmodel.inject.wiring.ViewModelMapKey
 
 @Module
 @ContributesTo(ViewModelScope::class)
@@ -324,8 +324,8 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:workmanager-generator:0.6")
-    api("ru.pixnews.anvil.codegen:workmanager-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:workmanager-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:workmanager-inject:0.1")
 }
 ```
 
@@ -333,8 +333,8 @@ Create a subcomponent for workers and add it to your application component,
 as shown in the following example:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.workmanager.inject.WorkManagerScope
-import ru.pixnews.anvil.codegen.workmanager.inject.wiring.CoroutineWorkerFactory
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.WorkManagerScope
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.wiring.CoroutineWorkerFactory
 import <your app scope>.AppScope
 
 @SingleIn(WorkManagerScope::class)
@@ -442,7 +442,7 @@ See [developer.android.com](https://developer.android.com/develop/background-wor
 Annotate your Coroutine Worker with `ContributesCoroutineWorker` to add it to the multibinding:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.workmanager.inject.ContributesCoroutineWorker
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.ContributesCoroutineWorker
 
 @ContributesCoroutineWorker
 class MyCoroutineWorker @AssistedInject constructor(
@@ -457,9 +457,9 @@ class MyCoroutineWorker @AssistedInject constructor(
 The following binding will be generated based on this annotation:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.workmanager.inject.WorkManagerScope
-import ru.pixnews.anvil.codegen.workmanager.inject.wiring.CoroutineWorkerFactory
-import ru.pixnews.anvil.codegen.workmanager.inject.wiring.CoroutineWorkerMapKey
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.WorkManagerScope
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.wiring.CoroutineWorkerFactory
+import ru.pixnews.anvil.ksp.codegen.workmanager.inject.wiring.CoroutineWorkerMapKey
 import ru.pixnews.foundation.di.base.qualifiers.ApplicationContext
 
 @AssistedFactory
@@ -483,15 +483,15 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:test-generator:0.6")
-    api("ru.pixnews.anvil.codegen:test-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:test-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:test-inject:0.1")
 }
 ```
 
 Add `InstrumentedTestInjector` to your application component:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.test.inject.wiring.InstrumentedTestInjector
+import ru.pixnews.anvil.ksp.codegen.test.inject.wiring.InstrumentedTestInjector
 import ru.pixnews.foundation.di.base.scopes.AppScope
 
 @ContributesTo(AppScope::class)
@@ -503,9 +503,9 @@ interface InstrumentedTestInjectorHolder {
 Add multibinding to the application module:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.test.inject.wiring.DefaultInstrumentedTestInjector
-import ru.pixnews.anvil.codegen.test.inject.wiring.InstrumentedTestInjector
-import ru.pixnews.anvil.codegen.test.inject.wiring.SingleInstrumentedTestInjector
+import ru.pixnews.anvil.ksp.codegen.test.inject.wiring.DefaultInstrumentedTestInjector
+import ru.pixnews.anvil.ksp.codegen.test.inject.wiring.InstrumentedTestInjector
+import ru.pixnews.anvil.ksp.codegen.test.inject.wiring.SingleInstrumentedTestInjector
 import ru.pixnews.foundation.di.base.DaggerMap
 import ru.pixnews.foundation.di.base.scopes.AppScope
 
@@ -551,7 +551,7 @@ class InjectDependenciesRule(
 Annotate your test with `ContributesTest` and use InjectDependenciesRule:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.test.inject.ContributesTest
+import ru.pixnews.anvil.ksp.codegen.test.inject.ContributesTest
 
 @ContributesTest
 class MyTest  {
@@ -566,7 +566,7 @@ class MyTest  {
 The following binding will be generated based on this annotation:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.test.inject.wiring.SingleInstrumentedTestInjector
+import ru.pixnews.anvil.ksp.codegen.test.inject.wiring.SingleInstrumentedTestInjector
 import ru.pixnews.foundation.di.base.scopes.AppScope
 
 @Module
@@ -592,15 +592,15 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:experiment-generator:0.6")
-    api("ru.pixnews.anvil.codegen:experiment-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:experiment-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:experiment-inject:0.1")
 }
 ```
 
 Create component with experiments:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.experiment.inject.ExperimentScope
+import ru.pixnews.anvil.ksp.codegen.experiment.inject.ExperimentScope
 
 @SingleIn(ExperimentScope::class)
 @MergeComponent(scope = ExperimentScope::class)
@@ -618,7 +618,7 @@ interface ExperimentsComponent {
 Module:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.experiment.inject.ExperimentScope
+import ru.pixnews.anvil.ksp.codegen.experiment.inject.ExperimentScope
 
 @Module
 @ContributesTo(ExperimentScope::class)
@@ -673,15 +673,15 @@ Add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.codegen:initializer-generator:0.6")
-    api("ru.pixnews.anvil.codegen:initializer-inject:0.6")
+    anvil("ru.pixnews.anvil.ksp.codegen:initializer-generator:0.1")
+    api("ru.pixnews.anvil.ksp.codegen:initializer-inject:0.1")
 }
 ```
 
 Create component to collect all initializers into multibinding set:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.initializer.inject.AppInitializersScope
+import ru.pixnews.anvil.ksp.codegen.initializer.inject.AppInitializersScope
 
 @SingleIn(AppInitializersScope::class)
 @MergeComponent(
@@ -701,7 +701,7 @@ interface AppInitializerComponent {
 Module:
 
 ```kotlin
-import ru.pixnews.anvil.codegen.initializer.inject.AppInitializersScope
+import ru.pixnews.anvil.ksp.codegen.initializer.inject.AppInitializersScope
 import ru.pixnews.foundation.initializers.AppInitializer
 import ru.pixnews.foundation.initializers.AsyncInitializer
 import ru.pixnews.foundation.initializers.Initializer
@@ -791,7 +791,7 @@ These services are licensed under Apache 2.0 License. Authors and contributors a
 [Authors](AUTHORS) file.
 
 ```
-Copyright 2024 pixnews-anvil-codegen project authors and contributors.
+Copyright 2024-2025 pixnews-anvil.codegen project authors and contributors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

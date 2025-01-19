@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2024, the pixnews-anvil-codegen project authors and contributors.
+ * Copyright (c) 2024-2025, the pixnews-anvil-codegen project authors and contributors.
  * Please see the AUTHORS file for details.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-package ru.pixnews.anvil.codegen.experiment.generator
+package ru.pixnews.anvil.ksp.codegen.experiment.generator
 
 import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import com.squareup.anvil.annotations.ContributesTo
+import com.squareup.anvil.compiler.internal.testing.ComponentProcessingMode.KSP
 import com.squareup.anvil.compiler.internal.testing.compileAnvil
 import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
@@ -22,12 +24,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import org.junit.jupiter.api.fail
-import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experiment
-import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantMapKey
-import ru.pixnews.anvil.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantSerializer
-import ru.pixnews.anvil.codegen.testutils.getElementValue
-import ru.pixnews.anvil.codegen.testutils.haveAnnotation
-import ru.pixnews.anvil.codegen.testutils.loadClass
+import ru.pixnews.anvil.ksp.codegen.experiment.generator.PixnewsExperimentClassName.experiment
+import ru.pixnews.anvil.ksp.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantMapKey
+import ru.pixnews.anvil.ksp.codegen.experiment.generator.PixnewsExperimentClassName.experimentVariantSerializer
+import ru.pixnews.anvil.ksp.codegen.testutils.getElementValue
+import ru.pixnews.anvil.ksp.codegen.testutils.haveAnnotation
+import ru.pixnews.anvil.ksp.codegen.testutils.loadClass
 
 @TestInstance(Lifecycle.PER_CLASS)
 class ContributesExperimentCodeGeneratorTest {
@@ -43,21 +45,23 @@ class ContributesExperimentCodeGeneratorTest {
             interface ExperimentVariantSerializer
             """.trimIndent(),
             """
-            package ru.pixnews.anvil.codegen.experiment.inject
+            package ru.pixnews.anvil.ksp.codegen.experiment.inject
             public abstract class ExperimentScope private constructor()
             public annotation class ContributesExperiment
             public annotation class ContributesExperimentVariantSerializer(val experimentKey: String)
             """.trimIndent(),
             """
-            package ru.pixnews.anvil.codegen.experiment.inject.wiring
-            annotation class ExperimentVariantMapKey(val key: String)
+            package ru.pixnews.anvil.ksp.codegen.experiment.inject.wiring
+            import dagger.MapKey
+
+            @MapKey annotation class ExperimentVariantMapKey(val key: String)
             """.trimIndent(),
             """
             package com.test
             import ru.pixnews.foundation.featuretoggles.Experiment
             import ru.pixnews.foundation.featuretoggles.ExperimentVariantSerializer
-            import ru.pixnews.anvil.codegen.experiment.inject.ContributesExperiment
-            import ru.pixnews.anvil.codegen.experiment.inject.ContributesExperimentVariantSerializer
+            import ru.pixnews.anvil.ksp.codegen.experiment.inject.ContributesExperiment
+            import ru.pixnews.anvil.ksp.codegen.experiment.inject.ContributesExperimentVariantSerializer
 
             @ContributesExperiment
             public object TestExperiment : Experiment {
@@ -68,12 +72,9 @@ class ContributesExperimentCodeGeneratorTest {
                 public object TestNoKeyExperimentSerializer : ExperimentVariantSerializer
             }
         """.trimIndent(),
+            componentProcessingMode = KSP,
+            expectExitCode = OK,
         )
-    }
-
-    @Test
-    fun `Dagger module should be generated`() {
-        assertThat(compilationResult.exitCode).isEqualTo(OK)
     }
 
     @Test
@@ -122,9 +123,7 @@ class ContributesExperimentCodeGeneratorTest {
         experimentKey: String,
     ) {
         val moduleClass = compilationResult.classLoader.loadClass(generatedModuleName)
-        val experimentVariantSerializerClass = compilationResult.classLoader.loadClass(
-            experimentVariantSerializer,
-        )
+        val experimentVariantSerializerClass = compilationResult.classLoader.loadClass(experimentVariantSerializer)
 
         @Suppress("UNCHECKED_CAST") val experimentVariantMapKey = compilationResult.classLoader
             .loadClass(experimentVariantMapKey) as Class<Annotation>
