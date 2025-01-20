@@ -8,6 +8,7 @@
 plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.dokka) apply false
     alias(libs.plugins.gradle.maven.publish.plugin.base) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.kapt) apply false

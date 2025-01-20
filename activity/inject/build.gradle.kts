@@ -8,6 +8,7 @@
 plugins {
     id("ru.pixnews.anvil.codegen.buildlogic.project.android.library")
     id("ru.pixnews.anvil.codegen.buildlogic.project.binary.compatibility.validator")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.dokka.subproject")
     id("ru.pixnews.anvil.codegen.buildlogic.project.publish.ksp")
 }
 

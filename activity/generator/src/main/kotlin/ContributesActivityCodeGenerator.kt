@@ -33,7 +33,7 @@ import ru.pixnews.anvil.ksp.codegen.common.classname.DaggerClassName
 import ru.pixnews.anvil.ksp.codegen.common.util.contributesToAnnotation
 import ru.pixnews.anvil.ksp.codegen.common.util.readClassNameOrDefault
 
-internal const val CONTRIBUTES_ACTIVITY_ANNOTATION_KSP_KEY = "ru.pixnews.anvil.activity.ContributesActivity"
+internal const val CONTRIBUTES_ACTIVITY_ANNOTATION_KSP_KEY = "ru.pixnews.anvil.ksp.activity.ContributesActivity"
 internal const val ACTIVITY_MAP_KEY_KSP_KEY = "ru.pixnews.anvil.ksp.activity.ActivityMapKey"
 internal const val ACTIVITY_SCOPE_KSP_KEY = "ru.pixnews.anvil.ksp.activity.ActivityScope"
 

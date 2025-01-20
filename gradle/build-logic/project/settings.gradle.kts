@@ -21,6 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
+include("documentation")
 include("kotlin")
 include("lint")
 

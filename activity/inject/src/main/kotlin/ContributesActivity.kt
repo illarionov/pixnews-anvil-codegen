@@ -21,6 +21,6 @@ package ru.pixnews.anvil.ksp.codegen.activity.inject
  *    abstract fun bindsMainInjector(target: MembersInjector<MainActivity>): MembersInjector<out Activity>
  *  }
  *```
- * The generated code created via the anvil-codegen module.
+ * The generated code created via the activity-generator module.
  */
 public annotation class ContributesActivity
