@@ -33,8 +33,6 @@ Then add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:workmanager-generator:0.1")
-    // Add this dependency to the ksp classpath if "anvil" configuration doesn't work for some reason:
     ksp("ru.pixnews.anvil.ksp.codegen:workmanager-generator:0.1")
 
     // workmanager-inject dependency is optional, all declarations this module can be overridden.

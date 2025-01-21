@@ -24,7 +24,7 @@ env:
 jobs:
   build:
     name: Build published artifact
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout sources
@@ -50,7 +50,7 @@ jobs:
       - name: Build website
         run: >
           ./gradlew --scan -Pkotlin.daemon.jvmargs="${{ env.KOTLIN_DAEMON_JVMARGS }}"
-           doc:aggregate-documentation:buildWebsite
+          :doc:aggregate-documentation:buildWebsite
           --stacktrace
 
       - name: Upload artifact

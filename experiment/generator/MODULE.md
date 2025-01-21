@@ -13,8 +13,6 @@ Then add the required dependencies:
 
 ```kotlin
 dependencies {
-    anvil("ru.pixnews.anvil.ksp.codegen:experiment-generator:0.1")
-    // Add this dependency to the ksp classpath if "anvil" configuration doesn't work for some reason:
     ksp("ru.pixnews.anvil.ksp.codegen:experiment-generator:0.1")
 
     implementation("ru.pixnews.anvil.ksp.codegen:experiment-inject:0.1")
