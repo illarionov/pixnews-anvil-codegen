@@ -7,6 +7,7 @@
 
 plugins {
     id("ru.pixnews.anvil.codegen.buildlogic.project.binary.compatibility.validator")
+    id("ru.pixnews.anvil.codegen.buildlogic.project.dokka.subproject")
     id("ru.pixnews.anvil.codegen.buildlogic.project.kotlin.library")
     id("ru.pixnews.anvil.codegen.buildlogic.project.publish.ksp")
     id("ru.pixnews.anvil.codegen.buildlogic.project.test")

@@ -14,6 +14,8 @@ plugins {
 }
 
 rootProject.name = "pixnews-anvil-codegen"
+
+include("doc:aggregate-documentation")
 include("common")
 include("test-utils")
 

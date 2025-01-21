@@ -12,5 +12,5 @@ import com.squareup.kotlinpoet.ClassName
 import ru.pixnews.anvil.ksp.codegen.common.InternalPixnewsAnvilCodegenApi
 
 @InternalPixnewsAnvilCodegenApi
-public fun SymbolProcessorEnvironment.readClassNameOrDefault(key: String, default: ClassName) =
+public fun SymbolProcessorEnvironment.readClassNameOrDefault(key: String, default: ClassName): ClassName =
     options[key]?.let(ClassName::bestGuess) ?: default
