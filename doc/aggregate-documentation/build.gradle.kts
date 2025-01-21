@@ -24,7 +24,7 @@ dokka {
     }
 }
 
-tasks.named("build").configure {
+tasks.register("buildWebsite").configure {
     dependsOn(tasks.named("dokkaGeneratePublicationHtml"))
 }
 
