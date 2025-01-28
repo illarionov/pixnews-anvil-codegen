@@ -5,6 +5,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import org.jetbrains.dokka.gradle.tasks.DokkaGeneratePublicationTask
+
 /*
  * Module responsible for aggregating Dokka documentation from subprojects
  */
@@ -20,12 +22,17 @@ dokka {
     dokkaPublications.configureEach {
         moduleName.set("Pixnews Anvil-KSP Code Generators")
         includes.from("FRONTPAGE.md")
-        outputDirectory.set(websiteOutputDirectory)
     }
 }
 
-tasks.register("buildWebsite").configure {
-    dependsOn(tasks.named("dokkaGeneratePublicationHtml"))
+val dokkaHtmlOutput = tasks.named<DokkaGeneratePublicationTask>("dokkaGeneratePublicationHtml")
+    .flatMap(DokkaGeneratePublicationTask::outputDirectory)
+
+tasks.register<Sync>("buildWebsite") {
+    description = "Assembles the final website from Dokka output"
+    from(dokkaHtmlOutput)
+    from(layout.projectDirectory.dir("root"))
+    into(websiteOutputDirectory)
 }
 
 dependencies {
