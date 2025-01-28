@@ -14,6 +14,8 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
+private val htmlResourcesRoot = rootProject.layout.projectDirectory.dir("doc/aggregate-documentation")
+
 dokka {
     dokkaPublications.configureEach {
         suppressObviousFunctions.set(true)
@@ -36,5 +38,10 @@ dokka {
     pluginsConfiguration.html {
         homepageLink.set("https://github.com/illarionov/pixnews-anvil-codegen")
         footerMessage.set("(C) pixnews-anvil-codegen project authors and contributors")
+        customStyleSheets.from(
+            htmlResourcesRoot.file("styles/font-jb-sans-auto.css"),
+            htmlResourcesRoot.file("styles/anvilcodegenstyle.css"),
+        )
+        templatesDir = htmlResourcesRoot.dir("templates")
     }
 }
