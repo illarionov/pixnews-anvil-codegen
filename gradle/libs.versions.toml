@@ -2,7 +2,7 @@
 androidMinSdk = "21"
 androidCompileSdk = "35"
 
-kotlin = "2.0.10"
+kotlin = "2.1.21"
 
 agp = "8.7.3"
 androidx-activity = "1.10.0"
