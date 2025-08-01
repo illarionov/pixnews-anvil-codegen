@@ -23,7 +23,7 @@ junit5 = "5.13.0"
 kotlin-compile-testing-fork = "0.7.0"
 kotlinpoet = "2.0.0"
 kotlinx-binary-compatibility-validator = "0.17.0"
-spotless = "7.0.0"
+spotless = "7.2.1"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
